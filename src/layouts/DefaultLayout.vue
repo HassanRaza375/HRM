@@ -12,14 +12,13 @@
 
     <!-- Content -->
     <v-main>
-      <v-container> <router-view /> </v-container>
+      <v-container fluid> <router-view /> </v-container>
     </v-main>
 
     <!-- Footer -->
     <Footer />
   </v-app>
 </template>
-
 
 <script setup>
 import { ref } from "vue";
