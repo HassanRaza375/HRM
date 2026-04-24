@@ -2,8 +2,11 @@ import { createRouter, createWebHistory } from "vue-router";
 
 // Pages
 import Dashboard from "../pages/Dashboard.vue";
-import Employees from "../pages/Employees.vue";
+import Employees from "../pages/Employees/index.vue";
+import CreateEmployee from "../pages/Employees/create.vue";
 import Templates from "../pages/Templates.vue";
+import Templates from "../pages/Templates/index.vue";
+import TemplatesCreate from "../pages/Templates/create.vue";
 import Login from "../pages/Login.vue";
 
 // Layouts
@@ -17,7 +20,9 @@ const routes = [
     children: [
       { path: "", component: Dashboard },
       { path: "employees", component: Employees },
+      { path: "employees/create", component: CreateEmployee },
       { path: "templates", component: Templates },
+      { path: "templates/create", component: TemplatesCreate },
     ],
   },
   {
