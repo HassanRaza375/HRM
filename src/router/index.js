@@ -4,7 +4,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import Dashboard from "../pages/Dashboard.vue";
 import Employees from "../pages/Employees/index.vue";
 import CreateEmployee from "../pages/Employees/create.vue";
-import Templates from "../pages/Templates.vue";
 import Templates from "../pages/Templates/index.vue";
 import TemplatesCreate from "../pages/Templates/create.vue";
 import Login from "../pages/Login.vue";
