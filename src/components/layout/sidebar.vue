@@ -9,7 +9,7 @@
   >
     <v-list>
       <v-toolbar-title class="d-flex align-center justify-center">
-        <v-icon icon="mdi-office-building" />
+        <div>Sat</div>
       </v-toolbar-title>
       <v-divider class="my-2" />
 
