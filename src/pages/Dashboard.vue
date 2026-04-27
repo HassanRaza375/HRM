@@ -47,12 +47,17 @@
         </v-row>
       </v-card>
     </v-col>
+    <!-- table -->
+    <v-col cols="12">
+      <div class="text-h6 mb-3">Employees Latest</div>
+      <DataTables :headers="headers" :items="employees" />
+    </v-col>
   </v-row>
 </template>
 
 <script setup>
 import { useRouter } from "vue-router";
-
+import DataTables from "../components/ui/DataTables.vue";
 const router = useRouter();
 
 const goToAddEmployee = () => {
@@ -82,7 +87,18 @@ const stats = [
     color: "info",
   },
 ];
+
+const headers = [
+  { title: "Name", key: "name" },
+  { title: "Email", key: "email" },
+  { title: "Role", key: "role" },
+  { title: "Status", key: "status" },
+];
+
+const employees = [
+  { name: "Ali", email: "ali@test.com", role: "Admin", status: "Active" },
+  { name: "Ahmed", email: "ahmed@test.com", role: "User", status: "Inactive" },
+];
 </script>
 
-<style>
-</style>
+<style></style>
