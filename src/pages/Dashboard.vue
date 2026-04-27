@@ -18,35 +18,39 @@
         </v-avatar>
       </v-card>
     </v-col>
+    <!-- New Hiring -->
+    <!-- <v-col cols="6">
+      <NewHiringCard :count="12" />
+    </v-col> -->
+    <!-- Quick Actions -->
     <v-col cols="12">
       <v-card class="pa-4 mt-4">
         <div class="text-h6 mb-3">Quick Actions</div>
 
         <v-row>
           <v-col cols="12" sm="6" md="3">
-            <v-btn
-              block
-              color="primary"
-              prepend-icon="mdi-account-plus"
-              @click="goToAddEmployee"
-            >
+            <v-btn block color="primary" prepend-icon="mdi-account-plus" @click="goToAddEmployee">
               Add Employee
             </v-btn>
           </v-col>
 
           <v-col cols="12" sm="6" md="3">
-            <v-btn
-              block
-              color="secondary"
-              prepend-icon="mdi-file-plus"
-              @click="goToCreateTemplate"
-            >
+            <v-btn block color="secondary" prepend-icon="mdi-file-plus" @click="goToCreateTemplate">
               Create Template
             </v-btn>
           </v-col>
         </v-row>
       </v-card>
     </v-col>
+    <!-- Growth Chart -->
+    <v-col cols="12" md="8">
+      <EmployeeGrowthChart :labels="['Jan', 'Feb', 'Mar', 'Apr']" :data="[5, 10, 15, 20]" />
+    </v-col>
+    <!-- Gender Ratio -->
+    <v-col cols="12" md="4">
+      <GenderRatioChart :male="70" :female="30" />
+    </v-col>
+
     <!-- table -->
     <v-col cols="12">
       <div class="text-h6 mb-3">Employees Latest</div>
@@ -58,6 +62,10 @@
 <script setup>
 import { useRouter } from "vue-router";
 import DataTables from "../components/ui/DataTables.vue";
+import EmployeeGrowthChart from "../components/charts/EmployeeGrowthChart.vue";
+import GenderRatioChart from "../components/charts/GenderRatioChart.vue";
+import NewHiringCard from "../components/charts/NewHiringCard.vue";
+
 const router = useRouter();
 
 const goToAddEmployee = () => {
