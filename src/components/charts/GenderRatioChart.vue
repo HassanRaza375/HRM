@@ -1,5 +1,5 @@
 <template>
-  <v-card class="pa-4">
+  <v-card class="pa-4 gender--ratio">
     <div class="text-h6 mb-3">Gender Ratio</div>
     <canvas ref="chartRef"></canvas>
   </v-card>
@@ -31,3 +31,8 @@ onMounted(() => {
   });
 });
 </script>
+<style scoped>
+.gender--ratio {
+  height: 100%;
+}
+</style>
