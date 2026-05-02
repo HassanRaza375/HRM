@@ -1,98 +1,86 @@
 <template>
-  <div class="pa-4">
-    <!-- Top Bar -->
-    <div class="d-flex justify-space-between align-center mb-3">
-      <!-- Column Toggle -->
-      <div class="d-flex align-center gap-2">
-        <v-menu v-model="menu" :close-on-content-click="false">
-          <template #activator="{ props }">
-            <v-btn v-bind="props" icon="mdi-tune"></v-btn>
-          </template>
+  <v-card class="rounded-2">
+    <v-card-item>
+      <div class="d-flex justify-space-between align-center mb-3">
+        <!-- Column Toggle -->
+        <div class="d-flex align-center gap-2 ms-1">
+          <v-menu v-model="menu" :close-on-content-click="false">
+            <template #activator="{ props }">
+              <v-btn v-bind="props" icon="mdi-tune"></v-btn>
+            </template>
 
-          <v-sheet class="pa-2 pt-3 column-menu">
-            <div class="menu-container">
-              <div class="menu-content">
-                <v-list class="py-0">
-                  <v-list-item
-                    v-for="header in headers"
-                    :key="header.key"
-                    class="px-0 py-0"
-                  >
-                    <v-checkbox
-                      v-model="tempColumns"
-                      :label="header.title"
-                      :value="header.key"
-                      hide-details
-                    />
-                  </v-list-item>
-                </v-list>
+            <v-sheet class="pa-2 pt-3 column-menu">
+              <div class="menu-container">
+                <div class="menu-content">
+                  <v-list class="py-0">
+                    <v-list-item v-for="header in headers" :key="header.key" class="px-0 py-0">
+                      <v-checkbox v-model="tempColumns" :label="header.title" :value="header.key" hide-details />
+                    </v-list-item>
+                  </v-list>
+                </div>
+
+                <div class="menu-footer">
+                  <v-btn variant="text" @click="onCancel">Cancel</v-btn>
+                  <v-btn color="primary" @click="onSave">Save</v-btn>
+                </div>
               </div>
+            </v-sheet>
+          </v-menu>
 
-              <div class="menu-footer">
-                <v-btn variant="text" @click="onCancel">Cancel</v-btn>
-                <v-btn color="primary" @click="onSave">Save</v-btn>
-              </div>
-            </div>
-          </v-sheet>
-        </v-menu>
-
-        <h2 class="table--title">{{ PageName }}</h2>
+          <h2 class="table--title">{{ PageName }}</h2>
+        </div>
+        <div class="d-flex align-center justify-end gap-2 flex-wrap">
+          <!-- Search -->
+          <v-text-field class="w-100" v-model="search" label="Search" variant="underlined" density="compact" prepend-inner-icon="mdi-magnify"
+            hide-details style="max-width: 250px;min-width: 250px;" />
+          <v-btn color="success" prepend-icon="mdi-plus" @click="onAddNew">Add New {{ PageName }}</v-btn>
+          <!-- Extra Actions -->
+          <TableAction :items="items" @actionType="actionType" />
+        </div>
       </div>
 
-      <!-- Search -->
-      <v-text-field
-        v-model="search"
-        label="Search"
-        density="compact"
-        prepend-inner-icon="mdi-magnify"
-        hide-details
-        style="max-width: 250px"
-      />
-    </div>
-
-    <v-data-table
-      :headers="computedHeaders"
-      :items="filteredItems"
-      :items-per-page="itemsPerPage"
-      v-model:page="page"
-      class="elevation-1"
-    >
-      <template v-if="hasActions" #item.actions="{ item }">
-        <v-btn icon size="small">
-          <v-icon>mdi-eye</v-icon>
-        </v-btn>
-
-        <v-btn icon size="small">
-          <v-icon>mdi-pencil</v-icon>
-        </v-btn>
-
-        <v-btn icon size="small" color="red">
-          <v-icon>mdi-delete</v-icon>
-        </v-btn>
-      </template>
-    </v-data-table>
-  </div>
+      <v-data-table :headers="computedHeaders" :items="filteredItems" :items-per-page="itemsPerPage"
+        v-model:page="page">
+        <template v-if="hasActions" #item.actions="{ item }">
+          <div class="d-flex items-center gap-2">
+            <v-icon @click="onView(item)" color="blue-lighten-1">mdi-eye</v-icon>
+            <v-icon @click="onEdit(item)" color="green-lighten-1">mdi-pencil</v-icon>
+            <v-icon @click="onDelete(item)" color="red-darken-1">mdi-delete</v-icon>
+          </div>
+        </template>
+      </v-data-table>
+    </v-card-item>
+    <!-- Top Bar -->
+  </v-card>
 </template>
 
 <script setup>
 import { ref, computed, watch } from "vue";
-
+import TableAction from "../../components/ui/tableAction.vue";
 const props = defineProps({
   headers: Array,
   items: Array,
-  PageName: String,
+  PageName: {
+    type: String,
+    default: "Data Table"
+  },
   itemsPerPageOptions: {
     type: Array,
     default: () => [10, 20, 30],
   },
 });
-
+const emit = defineEmits(["edit", "delete", "view", "addNew"]);
 // Search + Pagination
 const search = ref("");
 const page = ref(1);
 const itemsPerPage = ref(props.itemsPerPageOptions[0]);
 // Menu
 const menu = ref(false);
+const items = [
+  { title: "Import Bulk Employees", icon: "mdi-application-import", actionType: "import" },
+  { title: "Export in Excel", icon: "mdi-microsoft-excel", actionType: "export" },
+  { title: "Print", icon: "mdi-printer-outline", actionType: "print" },
+];
 
 // Visible columns
 const visibleColumns = ref(props.headers.map((h) => h.key));
@@ -142,13 +130,33 @@ const filteredItems = computed(() => {
 watch(search, () => {
   page.value = 1;
 });
+
+
+
+const onEdit = (e) => {
+  emit("edit", e);
+}
+const onDelete = (e) => {
+  emit("delete", e);
+}
+const onView = (e) => {
+  emit("view", e)
+}
+const onAddNew = () => {
+  emit("addNew")
+}
+
+const actionType = (type) => {
+  console.log(type)
+}
+
 </script>
 
 <style scoped>
 .table--title {
   font-size: 24px;
   font-weight: 500;
-  margin-left: 10px;
+  margin: 0;
 }
 
 .column-menu {
@@ -168,8 +176,13 @@ watch(search, () => {
 
 .menu-footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
   padding: 8px;
   border-top: 1px solid #eee;
+  gap: 5px;
+}
+
+.v-list-item--density-default.v-list-item--one-line {
+  height: auto !important;
 }
 </style>
