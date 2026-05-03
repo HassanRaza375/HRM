@@ -1,12 +1,12 @@
 <template>
   <v-card class="rounded-2">
     <v-card-item>
-      <div class="d-flex justify-space-between align-center mb-3">
+      <div class="d-flex justify-space-between align-center mb-3 flex-wrap">
         <!-- Column Toggle -->
-        <div class="d-flex align-center gap-2 ms-1">
+        <div class="d-flex align-center gap-2">
           <v-menu v-model="menu" :close-on-content-click="false">
             <template #activator="{ props }">
-              <v-btn v-bind="props" icon="mdi-tune"></v-btn>
+              <v-btn  v-bind="props" variant="text" icon="mdi-tune"></v-btn>
             </template>
 
             <v-sheet class="pa-2 pt-3 column-menu">
@@ -33,7 +33,7 @@
           <!-- Search -->
           <v-text-field class="w-100" v-model="search" label="Search" variant="underlined" density="compact" prepend-inner-icon="mdi-magnify"
             hide-details style="max-width: 250px;min-width: 250px;" />
-          <v-btn color="success" prepend-icon="mdi-plus" @click="onAddNew">Add New {{ PageName }}</v-btn>
+          <v-btn class="rounded-0" color="success" prepend-icon="mdi-plus" @click="onAddNew">{{ PageName }}</v-btn>
           <!-- Extra Actions -->
           <TableAction :items="items" @actionType="actionType" />
         </div>
