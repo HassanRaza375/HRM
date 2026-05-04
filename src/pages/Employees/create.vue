@@ -4,9 +4,9 @@
       <v-col cols="12">
         <v-card class="rounded-0">
           <v-card-item>
-            <div class="d-flex justify-space-between align-center">
+            <div class="d-flex justify-space-between align-center flex-wrap gap-2">
               <h1 class="my-0 text-headline-large font-weight-bold">{{ route.query.id ? 'Edit' : 'Create' }} Employee</h1>
-              <div class="d-flex align-items-center gap-2">
+              <div class="d-flex align-items-center gap-2 justify-content-end flex-grow-1">
                 <v-btn class="rounded-0" @click="goBack" prepend-icon="mdi-arrow-left" color="grey-lighten-1">Back</v-btn>
                 <v-btn class="rounded-0" color="primary" @click="onSubmit">
                   {{ route.query.id ? "Update Employee" : "Create Employee" }}
