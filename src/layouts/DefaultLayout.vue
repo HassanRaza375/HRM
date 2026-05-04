@@ -28,7 +28,7 @@ import Footer from "../components/layout/footer.vue";
 import Sidebar from "../components/layout/sidebar.vue";
 
 const drawer = ref(true);
-const rail = ref(false);
+const rail = ref(true);
 const toggleRail = () => {
   rail.value = !rail.value;
 };

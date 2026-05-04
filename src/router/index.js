@@ -8,11 +8,13 @@ import BulkUpload from "../pages/Employees/bulk-upload.vue";
 import Templates from "../pages/Templates/index.vue";
 import TemplatesCreate from "../pages/Templates/create.vue";
 import HRM from "../pages/HRM.vue";
+import Report from "../pages/Report/index.vue";
 import Login from "../pages/Login.vue";
 
 // Layouts
 import DefaultLayout from "../layouts/DefaultLayout.vue";
 import AuthLayout from "../layouts/AuthLayout.vue";
+import NotFound from "../pages/NotFound.vue";
 
 const routes = [
   {
@@ -21,11 +23,21 @@ const routes = [
     children: [
       { path: "", component: Dashboard },
       { path: "hrm", component: HRM },
+      { path: "report", component: Report },
+
       { path: "employees", component: Employees },
       { path: "employees/bulk-upload", component: BulkUpload },
       { path: "employees/create", component: CreateEmployee },
+
       { path: "templates", component: Templates },
       { path: "templates/create", component: TemplatesCreate },
+
+      {
+        path: '/404', name: 'NotFound', component: NotFound
+      },
+      {
+        path: '/:catchAll(.*)', redirect: '404'
+      }
     ],
   },
   {

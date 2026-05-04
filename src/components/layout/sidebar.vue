@@ -38,6 +38,7 @@ const emit = defineEmits(["update:drawer", "update:rail"]);
 const menuItems = [
   { title: "Dashboard", icon: "mdi-view-dashboard", path: "/" },
   { title: "HCM", icon: "mdi-account", path: "/HRM" },
+  { title: "Reports", icon: "mdi-file-chart-outline", path: "/Report" },
   // { title: "Employees", icon: "mdi-account-group", path: "/employees" },
   // { title: "Templates", icon: "mdi-file-document", path: "/templates" },
 ];
