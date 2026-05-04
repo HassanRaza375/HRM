@@ -37,7 +37,8 @@ const emit = defineEmits(["update:drawer", "update:rail"]);
 
 const menuItems = [
   { title: "Dashboard", icon: "mdi-view-dashboard", path: "/" },
-  { title: "Employees", icon: "mdi-account-group", path: "/employees" },
-  { title: "Templates", icon: "mdi-file-document", path: "/templates" },
+  { title: "HCM", icon: "mdi-account", path: "/HRM" },
+  // { title: "Employees", icon: "mdi-account-group", path: "/employees" },
+  // { title: "Templates", icon: "mdi-file-document", path: "/templates" },
 ];
 </script>

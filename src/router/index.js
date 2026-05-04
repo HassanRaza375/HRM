@@ -4,8 +4,10 @@ import { createRouter, createWebHistory } from "vue-router";
 import Dashboard from "../pages/Dashboard.vue";
 import Employees from "../pages/Employees/index.vue";
 import CreateEmployee from "../pages/Employees/create.vue";
+import BulkUpload from "../pages/Employees/bulk-upload.vue";
 import Templates from "../pages/Templates/index.vue";
 import TemplatesCreate from "../pages/Templates/create.vue";
+import HRM from "../pages/HRM.vue";
 import Login from "../pages/Login.vue";
 
 // Layouts
@@ -18,7 +20,9 @@ const routes = [
     component: DefaultLayout,
     children: [
       { path: "", component: Dashboard },
+      { path: "hrm", component: HRM },
       { path: "employees", component: Employees },
+      { path: "employees/bulk-upload", component: BulkUpload },
       { path: "employees/create", component: CreateEmployee },
       { path: "templates", component: Templates },
       { path: "templates/create", component: TemplatesCreate },

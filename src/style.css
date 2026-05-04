@@ -1,5 +1,6 @@
 body {
   background-color: rgb(var(--v-theme-background));
+  font-family: Roboto, sans-serif;
 }
 
 .gap-2 {
