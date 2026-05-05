@@ -49,7 +49,7 @@
             />
 
             <div class="d-flex align-center justify-center">
-              <v-btn color="primary" block size="x-large" @click="handleLogin">
+              <v-btn :loading="loading" color="primary" block size="x-large" @click="handleLogin">
                 Login
               </v-btn>
             </div>
@@ -81,6 +81,7 @@ const credentials = ref({
 });
 
 const error = ref("");
+const loading = ref(false);
 
 const allowedCredentials = [
   { username: "admin", password: "admin" },
@@ -88,6 +89,7 @@ const allowedCredentials = [
 ];
 
 const handleLogin = () => {
+  loading.value = true;
   const isValid = allowedCredentials.some(
     (user) =>
       user.username === credentials.value.username &&
@@ -95,11 +97,15 @@ const handleLogin = () => {
   );
 
   if (isValid) {
+    console.log("Login successful");
     error.value = "";
     storageService.set("isAuthenticated", "true");
     router.push("/");
+    loading.value = false;
   } else {
+    console.log("Login failed");
     error.value = "Invalid username or password";
+    loading.value = false;
   }
 };
 </script>
