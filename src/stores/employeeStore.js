@@ -5,6 +5,7 @@ export const useEmployeeStore = defineStore("employee", {
   state: () => ({
     employees: [],
     isAuthenticated: false,
+    showMainContent: false,
   }),
   actions: {
     load() {
