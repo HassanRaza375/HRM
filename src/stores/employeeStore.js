@@ -1,16 +1,18 @@
 // stores/employeeStore.js
 import { defineStore } from "pinia";
-
+import { storageService } from "../services/storageService";
 export const useEmployeeStore = defineStore("employee", {
   state: () => ({
     employees: [],
+    isAuthenticated: false,
   }),
   actions: {
     load() {
-      this.employees = JSON.parse(localStorage.getItem("employees") || "[]");
+      this.employees = storageService.get("employees") || [];
+      this.isAuthenticated = storageService.get("isAuthenticated");
     },
     save() {
-      localStorage.setItem("employees", JSON.stringify(this.employees));
+      storageService.set("employees", this.employees);
     },
   },
 });

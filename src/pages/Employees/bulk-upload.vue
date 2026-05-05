@@ -1,9 +1,13 @@
 <template>
   <v-container>
     <v-card class="pa-4">
-
       <!-- Upload -->
-      <v-file-input label="Upload Excel" accept=".xlsx, .csv" :multiple="false" @update:modelValue="handleFile" />
+      <v-file-input
+        label="Upload Excel"
+        accept=".xlsx, .csv"
+        :multiple="false"
+        @update:modelValue="handleFile"
+      />
 
       <!-- Actions -->
       <div class="d-flex gap-2 my-3">
@@ -14,8 +18,13 @@
       </div>
 
       <!-- Table -->
-      <v-data-table v-if="tableData.length" :headers="headers" :items="tableData" class="elevation-1"
-        :items-per-page="10">
+      <v-data-table
+        v-if="tableData.length"
+        :headers="headers"
+        :items="tableData"
+        class="elevation-1"
+        :items-per-page="10"
+      >
         <!-- Actions -->
         <template #item.actions="{ item }">
           <v-btn size="small" @click="viewRow(item)">View</v-btn>
@@ -24,21 +33,25 @@
           </v-btn>
         </template>
       </v-data-table>
-
     </v-card>
 
-    <ConfirmDialog v-model="deleteDialog" title="Confirm Delete" message="Are you sure you want to delete this item?"
-      @confirm="confirmDelete" />
+    <ConfirmDialog
+      v-model="deleteDialog"
+      title="Confirm Delete"
+      message="Are you sure you want to delete this item?"
+      @confirm="confirmDelete"
+    />
     <ViewDetails v-model="dialog" :selectedRow="selectedRow" />
   </v-container>
 </template>
 <script setup>
 import ConfirmDialog from "../../components/ui/ConfirmDialog.vue";
 import ViewDetails from "../../components/ui/ViewDetails.vue";
-
+import { useEmployeeStore } from "../../stores/employeeStore";
 import * as XLSX from "xlsx";
 import { ref } from "vue";
 
+const employeeStore = useEmployeeStore();
 const tableData = ref([]);
 const headers = ref([]);
 
@@ -46,11 +59,11 @@ const dialog = ref(false);
 const deleteDialog = ref(false);
 const selectedRow = ref({});
 
-// 📌 Handle File Upload
+//  Handle File Upload
 const handleFile = (files) => {
   if (!files) return;
 
-  // ✅ Get first file from array
+  //  Get first file from array
   const file = Array.isArray(files) ? files[0] : files;
 
   if (!file) return;
@@ -77,32 +90,33 @@ const handleFile = (files) => {
     ];
   };
 
-  reader.readAsArrayBuffer(file); // ✅ now correct
+  reader.readAsArrayBuffer(file); //  now correct
 };
 
-// 📌 Clear
+//  Clear
 const clearData = () => {
   openDeleteDialog(null);
 };
 
-// 📌 Save to localStorage
+//  Save to localStorage
 const saveData = () => {
-  const existing =
-    JSON.parse(localStorage.getItem("employees")) || [];
+  const existing = employeeStore.$state.employees;
 
   const updated = [...existing, ...tableData.value];
 
-  localStorage.setItem("employees", JSON.stringify(updated));
+  employeeStore.$state.employees = updated;
+
+  employeeStore.save();
 
   alert("Saved successfully!");
 };
 
-// 📌 View Row
+//  View Row
 const viewRow = (row) => {
   selectedRow.value = row;
   dialog.value = true;
 };
-// 📌 Delete Row
+//  Delete Row
 const openDeleteDialog = (row) => {
   selectedRow.value = row;
   deleteDialog.value = true;
@@ -110,7 +124,7 @@ const openDeleteDialog = (row) => {
 const confirmDelete = () => {
   if (selectedRow.value) {
     tableData.value = tableData.value.filter(
-      (item) => item !== selectedRow.value
+      (item) => item !== selectedRow.value,
     );
   } else {
     tableData.value = [];

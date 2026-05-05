@@ -21,11 +21,15 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useAppTheme } from "../composables/useTheme";
 import Header from "../components/layout/header.vue";
 import Footer from "../components/layout/footer.vue";
 import Sidebar from "../components/layout/sidebar.vue";
+
+import { useEmployeeStore } from "../stores/employeeStore";
+const employeeStore = useEmployeeStore();
+onMounted(() => employeeStore.load());
 
 const drawer = ref(true);
 const rail = ref(true);

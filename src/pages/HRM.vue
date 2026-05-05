@@ -51,6 +51,10 @@ let data = ref([
         title: "Bulk Upload Employees",
         url: "/employees/bulk-upload",
       },
+      {
+        title: "Employees Leaves",
+        url: "/employees/employees-leaves",
+      },
     ],
   },
   {
