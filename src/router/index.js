@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { storageService } from "../services/storageService";
 
 // Pages
 import Dashboard from "../pages/Dashboard.vue";
@@ -62,10 +63,13 @@ export const router = createRouter({
   history: createWebHistory(),
   routes,
 });
-router.beforeEach((to, from, next) => {
-  const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
 
-  if (to.meta.requiresAuth && !isAuthenticated) {
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = storageService.get("isAuthenticated") === "true";
+
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+
+  if (requiresAuth && !isAuthenticated) {
     next("/login");
   } else if (to.path === "/login" && isAuthenticated) {
     next("/");
