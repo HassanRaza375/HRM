@@ -107,7 +107,8 @@ const saveData = () => {
   employeeStore.$state.employees = updated;
 
   employeeStore.save();
-
+  employeeStore.load();
+  employeeStore.showMainContent = true;
   alert("Saved successfully!");
 };
 
