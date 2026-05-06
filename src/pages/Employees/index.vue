@@ -1,21 +1,9 @@
 <template>
   <div>
-    <DataTables
-      :headers="headers"
-      :items="employees"
-      :itemsPerPageOptions="itemsPerPageOptions"
-      @delete="onDelete"
-      @edit="onEdit"
-      @view="onView"
-      @addNew="onAddNew"
-      PageName="Employees"
-    />
-    <ConfirmDialog
-      v-model="deleteDialog"
-      title="Confirm Delete"
-      message="Are you sure you want to delete this item?"
-      @confirm="confirmDelete"
-    />
+    <DataTables :headers="headers" :items="employees" :itemsPerPageOptions="itemsPerPageOptions" @delete="onDelete"
+      @edit="onEdit" @view="onView" @addNew="onAddNew" PageName="Employees" />
+    <ConfirmDialog v-model="deleteDialog" title="Confirm Delete" message="Are you sure you want to delete this item?"
+      @confirm="confirmDelete" />
     <!-- View Dialog -->
     <ViewDetails v-model="dialog" :selectedRow="selectedRow" />
   </div>
@@ -78,10 +66,9 @@ const onDelete = (e) => {
   deleteDialog.value = true;
 };
 const confirmDelete = () => {
-  employees.value = employees.value.filter(
-    (item) => item !== selectedRow.value,
-  );
+  employeeStore.deleteEmployee(selectedRow.value.employeeid);
   deleteDialog.value = false;
+  LoadData();
 };
 const onView = (e) => {
   selectedRow.value = e;
@@ -90,9 +77,11 @@ const onView = (e) => {
 const onAddNew = () => {
   router.push("/employees/create");
 };
-
-onMounted(() => {
+const LoadData = () => {
   employees.value = employeeStore.employees;
+};
+onMounted(() => {
+  LoadData();
 });
 </script>
 

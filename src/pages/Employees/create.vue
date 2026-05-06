@@ -5,9 +5,11 @@
         <v-card class="rounded-0">
           <v-card-item>
             <div class="d-flex justify-space-between align-center flex-wrap gap-2">
-              <h1 class="my-0 text-headline-large font-weight-bold">{{ route.query.id ? 'Edit' : 'Create' }} Employee</h1>
+              <h1 class="my-0 text-headline-large font-weight-bold">{{ route.query.id ? 'Edit' : 'Create' }} Employee
+              </h1>
               <div class="d-flex align-items-center gap-2 justify-end flex-grow-1">
-                <v-btn class="rounded-0" @click="goBack" prepend-icon="mdi-arrow-left" color="grey-lighten-1">Back</v-btn>
+                <v-btn class="rounded-0" @click="goBack" prepend-icon="mdi-arrow-left"
+                  color="grey-lighten-1">Back</v-btn>
                 <v-btn class="rounded-0" color="primary" @click="onSubmit">
                   {{ route.query.id ? "Update Employee" : "Create Employee" }}
                 </v-btn>
@@ -33,7 +35,7 @@
             <h2>Basic</h2>
             <v-row class="mt-2">
               <v-col cols="12" md="4">
-                <v-text-field v-model="form.employeeId" variant="outlined" density="compact" label="Employee ID"
+                <v-text-field v-model="form.employeeid" variant="outlined" density="compact" label="Employee ID"
                   :rules="[required]" />
               </v-col>
 
@@ -48,7 +50,7 @@
               </v-col>
 
               <v-col cols="12" md="4">
-                <v-text-field v-model="form.reportingLine" variant="outlined" density="compact" label="Reporting Line"
+                <v-text-field v-model="form.reportingline" variant="outlined" density="compact" label="Reporting Line"
                   :rules="[required]" />
               </v-col>
 
@@ -74,17 +76,17 @@
             <h2>Salary</h2>
             <v-row class="mt-2">
               <v-col cols="12" md="4">
-                <v-text-field v-model="form.salaryAtHiring" variant="outlined" density="compact"
+                <v-text-field v-model="form.salaryathiring" variant="outlined" density="compact"
                   label="Salary at Hiring" :rules="[required]" />
               </v-col>
 
               <v-col cols="12" md="4">
-                <v-text-field v-model="form.probationSalary" variant="outlined" density="compact"
+                <v-text-field v-model="form.probationsalary" variant="outlined" density="compact"
                   label="After Probation" :rules="[required]" />
               </v-col>
 
               <v-col cols="12" md="4">
-                <v-text-field v-model="form.currentSalary" variant="outlined" density="compact" label="Current Salary"
+                <v-text-field v-model="form.currentsalary" variant="outlined" density="compact" label="Current Salary"
                   :rules="[required]" />
               </v-col>
             </v-row>
@@ -100,7 +102,7 @@
               </v-col>
 
               <v-col cols="12" md="4">
-                <v-select v-model="form.maritalStatus" :items="['Single', 'Married']" variant="outlined"
+                <v-select v-model="form.maritalstatus" :items="['Single', 'Married']" variant="outlined"
                   density="compact" label="Marital Status" :rules="[required]" />
               </v-col>
 
@@ -126,27 +128,27 @@
             <h2>Contact</h2>
             <v-row class="mt-2">
               <v-col cols="12" md="4">
-                <v-text-field v-model="form.contactNumber" variant="outlined" density="compact" label="Contact Number"
+                <v-text-field v-model="form.contactnumber" variant="outlined" density="compact" label="Contact Number"
                   :rules="[required]" />
               </v-col>
 
               <v-col cols="12" md="4">
-                <v-text-field v-model="form.personalEmail" variant="outlined" density="compact" label="Personal Email"
+                <v-text-field v-model="form.personalemail" variant="outlined" density="compact" label="Personal Email"
                   :rules="[required]" />
               </v-col>
 
               <v-col cols="12" md="4">
-                <v-text-field v-model="form.officialEmail" variant="outlined" density="compact" label="Official Email"
+                <v-text-field v-model="form.officialemail" variant="outlined" density="compact" label="Official Email"
                   :rules="[required]" />
               </v-col>
 
               <v-col cols="12" md="6">
-                <v-textarea v-model="form.currentAddress" variant="outlined" density="compact" label="Current Address"
+                <v-textarea v-model="form.currentaddress" variant="outlined" density="compact" label="Current Address"
                   :rules="[required]" />
               </v-col>
 
               <v-col cols="12" md="6">
-                <v-textarea v-model="form.permanentAddress" variant="outlined" density="compact"
+                <v-textarea v-model="form.permanentaddress" variant="outlined" density="compact"
                   label="Permanent Address" :rules="[required]" />
               </v-col>
             </v-row>
@@ -157,37 +159,37 @@
             <h2>Family</h2>
             <v-row class="mt-2">
               <v-col cols="12" md="4">
-                <v-text-field v-model="form.fatherName" variant="outlined" density="compact" label="Father Name"
+                <v-text-field v-model="form.fathername" variant="outlined" density="compact" label="Father Name"
                   :rules="[required]" />
               </v-col>
 
               <v-col cols="12" md="4">
-                <v-text-field v-model="form.emergencyName" variant="outlined" density="compact" label="Emergency Name"
+                <v-text-field v-model="form.emergencyname" variant="outlined" density="compact" label="Emergency Name"
                   :rules="[required]" />
               </v-col>
 
               <v-col cols="12" md="4">
-                <v-text-field v-model="form.emergencyRelation" variant="outlined" density="compact"
+                <v-text-field v-model="form.emergencyrelation" variant="outlined" density="compact"
                   label="Emergency Relation" :rules="[required]" />
               </v-col>
 
               <v-col cols="12" md="4">
-                <v-text-field v-model="form.emergencyNumber" variant="outlined" density="compact"
+                <v-text-field v-model="form.emergencynumber" variant="outlined" density="compact"
                   label="Emergency Number" :rules="[required]" />
               </v-col>
 
               <v-col cols="12" md="4">
-                <v-text-field v-model="form.dependentName" variant="outlined" density="compact" label="Dependent Name"
+                <v-text-field v-model="form.dependentname" variant="outlined" density="compact" label="Dependent Name"
                   :rules="[required]" />
               </v-col>
 
               <v-col cols="12" md="4">
-                <v-text-field v-model="form.dependentRelation" variant="outlined" density="compact"
+                <v-text-field v-model="form.dependentrelation" variant="outlined" density="compact"
                   label="Dependent Relation" :rules="[required]" />
               </v-col>
 
               <v-col cols="12" md="4">
-                <v-text-field v-model="form.dependentNumber" variant="outlined" density="compact"
+                <v-text-field v-model="form.dependentnumber" variant="outlined" density="compact"
                   label="Dependent Number" :rules="[required]" />
               </v-col>
             </v-row>
@@ -198,17 +200,17 @@
             <h2>Bank</h2>
             <v-row class="mt-2">
               <v-col cols="12" md="4">
-                <v-text-field v-model="form.bankName" variant="outlined" density="compact" label="Bank Name"
+                <v-text-field v-model="form.bankname" variant="outlined" density="compact" label="Bank Name"
                   :rules="[required]" />
               </v-col>
 
               <v-col cols="12" md="4">
-                <v-text-field v-model="form.accountTitle" variant="outlined" density="compact" label="Account Title"
+                <v-text-field v-model="form.accounttitle" variant="outlined" density="compact" label="Account Title"
                   :rules="[required]" />
               </v-col>
 
               <v-col cols="12" md="4">
-                <v-text-field v-model="form.accountNumber" variant="outlined" density="compact" label="Account Number"
+                <v-text-field v-model="form.accountnumber" variant="outlined" density="compact" label="Account Number"
                   :rules="[required]" />
               </v-col>
             </v-row>
@@ -221,43 +223,47 @@
 <script setup>
 import { useRoute, useRouter } from "vue-router";
 import { onMounted, ref, watch } from "vue";
+import { useEmployeeStore } from "../../stores/employeeStore";
 const tab = ref(0);
+const employees = ref([]);
+const employeeStore = useEmployeeStore();
+
 const form = ref({
-  employeeId: "",
+  employeeid: "",
   name: "",
   designation: "",
-  reportingLine: "",
+  reportingline: "",
   doj: "",
   dol: "",
   reason: "",
 
-  currentSalary: "",
-  salaryAtHiring: "",
-  probationSalary: "",
+  currentsalary: "",
+  salaryathiring: "",
+  probationsalary: "",
 
   cnic: "",
-  maritalStatus: "",
+  maritalstatus: "",
   religion: "",
   dob: "",
   age: "",
 
-  contactNumber: "",
-  personalEmail: "",
-  officialEmail: "",
-  currentAddress: "",
-  permanentAddress: "",
+  contactnumber: "",
+  personalemail: "",
+  officialemail: "",
+  currentaddress: "",
+  permanentaddress: "",
 
-  fatherName: "",
-  emergencyName: "",
-  emergencyRelation: "",
-  emergencyNumber: "",
-  dependentName: "",
-  dependentRelation: "",
-  dependentNumber: "",
+  fathername: "",
+  emergencyname: "",
+  emergencyrelation: "",
+  emergencynumber: "",
+  dependentname: "",
+  dependentrelation: "",
+  dependentnumber: "",
 
-  bankName: "",
-  accountTitle: "",
-  accountNumber: "",
+  bankname: "",
+  accounttitle: "",
+  accountnumber: "",
 });
 
 const route = useRoute();
@@ -282,10 +288,18 @@ watch(() => form.value.dob, (dob) => {
 
 // Submit
 const onSubmit = () => {
-  if (route.query.id) {
-    console.log("UPDATE", form.value);
-  } else {
-    console.log("CREATE", form.value);
+  try {
+    if (route.query.id) {
+      const employee = employeeStore.getEmployeeById(route.query.id);
+      if (employee) {
+        employeeStore.updateEmployee({ id: route.query.id, ...form.value });
+      }
+    } else {
+      employeeStore.addEmployee(form.value);
+    }
+    router.push("/employees");
+  } catch (error) {
+    console.error("Error submitting form:", error);
   }
 };
 
@@ -296,16 +310,12 @@ const goBack = () => {
 function required(v) {
   return !!v || 'Field is required'
 }
+const loadEdit = (id) => {
+  form.value = employeeStore.getEmployeeById(id) || form.value;
+}
 onMounted(() => {
   if (route.query.id) {
-    // simulate API
-    const existingData = {
-      name: "John Doe",
-      designation: "Developer",
-      contactNumber: "123456789",
-    };
-
-    form.value = { ...form.value, ...existingData };
+    loadEdit(route.query.id);
   }
 });
 </script>

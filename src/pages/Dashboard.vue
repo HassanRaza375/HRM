@@ -117,7 +117,7 @@ const headers = [
 
 onMounted(() => {
   if (employeeStore.$state.employees.length > 0) {
-    employees.value = employeeStore.$state.employees.map((emp, index) => ({
+    employees.value = employeeStore.$state.employees.reverse().map((emp, index) => ({
       number: index + 1,
       ...emp,
     }));
