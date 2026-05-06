@@ -2,6 +2,6 @@
   <UnderConstruction />
 </template>
 <script setup>
-import UnderConstruction from "../../components/ui/underConstruction.vue";
+import UnderConstruction from "../components/ui/underConstruction.vue";
 </script>
 <style scoped></style>

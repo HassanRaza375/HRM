@@ -15,5 +15,9 @@ export const useEmployeeStore = defineStore("employee", {
     save() {
       storageService.set("employees", this.employees);
     },
+    logout() {
+      storageService.set("isAuthenticated", false);
+      window.location.reload();
+    },
   },
 });

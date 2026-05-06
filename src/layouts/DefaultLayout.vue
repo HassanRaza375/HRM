@@ -3,7 +3,12 @@
     <!-- Sidebar -->
     <Sidebar v-model:drawer="drawer" v-model:rail="rail" />
     <!-- Header -->
-    <Header @toggleDrawer="toggleDrawer" @toggleRail="toggleRail" :toggleTheme="toggleTheme" :isDark="isDark" />
+    <Header
+      @toggleDrawer="toggleDrawer"
+      @toggleRail="toggleRail"
+      :toggleTheme="toggleTheme"
+      :isDark="isDark"
+    />
 
     <!-- Content -->
     <v-main>
@@ -35,7 +40,11 @@ onMounted(() => {
     setTimeout(() => {
       employeeStore.showMainContent = true;
     }, 2500);
-    router.push("/employees/bulk-upload")
+    router.push("/employees/bulk-upload");
+  } else {
+    setTimeout(() => {
+      employeeStore.showMainContent = true;
+    }, 2500);
   }
 });
 

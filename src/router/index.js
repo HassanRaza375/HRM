@@ -18,6 +18,8 @@ import Report from "../pages/Report/index.vue";
 
 import Login from "../pages/Login.vue";
 
+import Settings from "../pages/Settings.vue";
+
 // Layouts
 import DefaultLayout from "../layouts/DefaultLayout.vue";
 import AuthLayout from "../layouts/AuthLayout.vue";
@@ -40,6 +42,8 @@ const routes = [
 
       { path: "templates", component: Templates },
       { path: "templates/create", component: TemplatesCreate },
+
+      { path: "settings", component: Settings },
 
       {
         path: "404",

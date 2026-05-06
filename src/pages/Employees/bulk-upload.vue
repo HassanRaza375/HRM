@@ -12,7 +12,12 @@
       <!-- Actions -->
       <div class="d-flex gap-2 my-3">
         <v-btn color="error" @click="clearData">Clear</v-btn>
-        <v-btn color="primary" :disabled="!tableData.length" @click="saveData">
+        <v-btn
+          color="primary"
+          :disabled="!tableData.length"
+          :loading="Loading"
+          @click="saveData"
+        >
           Save
         </v-btn>
       </div>
@@ -48,13 +53,14 @@
 import ConfirmDialog from "../../components/ui/ConfirmDialog.vue";
 import ViewDetails from "../../components/ui/ViewDetails.vue";
 import { useEmployeeStore } from "../../stores/employeeStore";
+import formatKey from "../../utils/formatekey";
 import * as XLSX from "xlsx";
 import { ref } from "vue";
 
 const employeeStore = useEmployeeStore();
 const tableData = ref([]);
 const headers = ref([]);
-
+const Loading = ref(false);
 const dialog = ref(false);
 const deleteDialog = ref(false);
 const selectedRow = ref({});
@@ -100,18 +106,35 @@ const clearData = () => {
 
 //  Save to localStorage
 const saveData = () => {
-  const existing = employeeStore.$state.employees;
+  Loading.value = true;
 
-  const updated = [...existing, ...tableData.value];
+  try {
+    // Transform keys here
+    const formattedData = tableData.value.map((row) => {
+      const newRow = {};
 
-  employeeStore.$state.employees = updated;
+      Object.keys(row).forEach((key) => {
+        const formattedKey = formatKey(key);
+        newRow[formattedKey] = row[key];
+      });
 
-  employeeStore.save();
-  employeeStore.load();
-  employeeStore.showMainContent = true;
-  alert("Saved successfully!");
+      return newRow;
+    });
+
+    // Save formatted data
+    employeeStore.$state.employees = formattedData;
+
+    employeeStore.save();
+    employeeStore.load();
+    employeeStore.showMainContent = true;
+
+    alert("Saved successfully!");
+  } catch (err) {
+    console.log(err);
+  } finally {
+    Loading.value = false;
+  }
 };
-
 //  View Row
 const viewRow = (row) => {
   selectedRow.value = row;
