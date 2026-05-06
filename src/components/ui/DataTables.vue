@@ -6,7 +6,7 @@
         <div class="d-flex align-center gap-2">
           <v-menu v-model="menu" :close-on-content-click="false">
             <template #activator="{ props }">
-              <v-btn  v-bind="props" variant="text" icon="mdi-tune"></v-btn>
+              <v-btn v-bind="props" variant="text" icon="mdi-tune"></v-btn>
             </template>
 
             <v-sheet class="pa-2 pt-3 column-menu">
@@ -31,9 +31,11 @@
         </div>
         <div class="d-flex align-center justify-end gap-2 flex-wrap">
           <!-- Search -->
-          <v-text-field class="w-100" v-model="search" label="Search" variant="underlined" density="compact" prepend-inner-icon="mdi-magnify"
-            hide-details style="max-width: 250px;min-width: 250px;" />
-          <v-btn class="rounded-0" color="success" prepend-icon="mdi-plus" @click="onAddNew">{{ PageName }}</v-btn>
+          <v-text-field class="w-100" v-model="search" label="Search" variant="underlined" density="compact"
+            prepend-inner-icon="mdi-magnify" hide-details style="max-width: 250px;min-width: 250px;" />
+          <v-btn class="rounded-0" color="success" prepend-icon="mdi-plus" @click="onAddNew" v-if="actionsToShow.addNew">
+            {{ PageName }}
+          </v-btn>
           <!-- Extra Actions -->
           <TableAction :items="items" @actionType="actionType" />
         </div>
@@ -43,9 +45,9 @@
         v-model:page="page">
         <template v-if="hasActions" #item.actions="{ item }">
           <div class="d-flex items-center gap-2">
-            <v-icon @click="onView(item)" color="blue-lighten-1">mdi-eye</v-icon>
-            <v-icon @click="onEdit(item)" color="green-lighten-1">mdi-pencil</v-icon>
-            <v-icon @click="onDelete(item)" color="red-darken-1">mdi-delete</v-icon>
+            <v-icon @click="onView(item)" v-if="actionsToShow.view" color="blue-lighten-1">mdi-eye</v-icon>
+            <v-icon @click="onEdit(item)" v-if="actionsToShow.edit" color="green-lighten-1">mdi-pencil</v-icon>
+            <v-icon @click="onDelete(item)" v-if="actionsToShow.delete" color="red-darken-1">mdi-delete</v-icon>
           </div>
         </template>
       </v-data-table>
@@ -60,6 +62,10 @@ import TableAction from "../../components/ui/tableAction.vue";
 const props = defineProps({
   headers: Array,
   items: Array,
+  actionsToShow: {
+    type: Object,
+    default: () => ({ view: true, edit: true, delete: true, addNew: true }),
+  },
   PageName: {
     type: String,
     default: "Data Table"

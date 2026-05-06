@@ -2,34 +2,20 @@
   <v-container>
     <v-card class="pa-4">
       <!-- Upload -->
-      <v-file-input
-        label="Upload Excel"
-        accept=".xlsx, .csv"
-        :multiple="false"
-        @update:modelValue="handleFile"
-      />
+      <v-file-input label="Upload Excel" accept=".xlsx, .csv" :multiple="false" @update:modelValue="handleFile" />
 
       <!-- Actions -->
       <div class="d-flex gap-2 my-3">
-        <v-btn color="error" @click="clearData">Clear</v-btn>
-        <v-btn
-          color="primary"
-          :disabled="!tableData.length"
-          :loading="Loading"
-          @click="saveData"
-        >
+        <v-btn color="error"
+          @click="clearData({ title: 'Confirm Clear', message: 'Are you sure you want to clear all data?', cancelText: 'Cancel', confirmText: 'Clear' })">Clear</v-btn>
+        <v-btn color="primary" :disabled="!tableData.length" :loading="Loading" @click="saveData">
           Save
         </v-btn>
       </div>
 
       <!-- Table -->
-      <v-data-table
-        v-if="tableData.length"
-        :headers="headers"
-        :items="tableData"
-        class="elevation-1"
-        :items-per-page="10"
-      >
+      <v-data-table v-if="tableData.length" :headers="headers" :items="tableData" class="elevation-1"
+        :items-per-page="10">
         <!-- Actions -->
         <template #item.actions="{ item }">
           <v-btn size="small" @click="viewRow(item)">View</v-btn>
@@ -40,12 +26,8 @@
       </v-data-table>
     </v-card>
 
-    <ConfirmDialog
-      v-model="deleteDialog"
-      title="Confirm Delete"
-      message="Are you sure you want to delete this item?"
-      @confirm="confirmDelete"
-    />
+    <ConfirmDialog v-model="deleteDialog" :title="dialogSetting.title" :message="dialogSetting.message"
+      :cancelText="dialogSetting.cancelText" :confirmText="dialogSetting.confirmText" @confirm="confirmDelete" />
     <ViewDetails v-model="dialog" :selectedRow="selectedRow" />
   </v-container>
 </template>
@@ -64,7 +46,12 @@ const Loading = ref(false);
 const dialog = ref(false);
 const deleteDialog = ref(false);
 const selectedRow = ref({});
-
+const dialogSetting = ref({
+  title: "",
+  message: "",
+  cancelText: "",
+  confirmText: "",
+})
 //  Handle File Upload
 const handleFile = (files) => {
   if (!files) return;
@@ -100,7 +87,13 @@ const handleFile = (files) => {
 };
 
 //  Clear
-const clearData = () => {
+const clearData = (data = {}) => {
+  dialogSetting.value = {
+    title: data.title || "Confirm Clear",
+    message: data.message || "Are you sure you want to clear all data?",
+    cancelText: data.cancelText || "Cancel",
+    confirmText: data.confirmText || "Clear",
+  }
   openDeleteDialog(null);
 };
 
@@ -145,7 +138,13 @@ const openDeleteDialog = (row) => {
   selectedRow.value = row;
   deleteDialog.value = true;
 };
-const confirmDelete = () => {
+const confirmDelete = (data = {}) => {
+  dialogSetting.value = {
+    title: data.title || "Confirm Delete",
+    message: data.message || "Are you sure you want to delete this item?",
+    cancelText: data.cancelText || "Cancel",
+    confirmText: data.confirmText || "Delete",
+  }
   if (selectedRow.value) {
     tableData.value = tableData.value.filter(
       (item) => item !== selectedRow.value,

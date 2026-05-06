@@ -13,11 +13,7 @@
         </v-card-text>
       </v-card>
       <p class="my-0 py-2 d-flex align-center flex-wrap">
-        <span
-          v-for="link in item.links"
-          :key="link.title"
-          class="cursor-pointer nowrap text-body-medium"
-        >
+        <span v-for="link in item.links" :key="link.title" class="cursor-pointer nowrap text-body-medium">
           <router-link :to="link.url" style="color: rgb(74, 87, 141)">{{
             link.title
           }}</router-link>
@@ -51,9 +47,32 @@ let data = ref([
         title: "Bulk Upload Employees",
         url: "/employees/bulk-upload",
       },
+
+    ],
+  },
+  {
+    title: "Leaves",
+    subtitle: "Management",
+    image: "https://teamsuite.pk/zimages/icn_LeaveManage.png",
+    links: [
       {
         title: "Employees Leaves",
         url: "/employees/employees-leaves",
+      },
+    ],
+  },
+  {
+    title: "Performance",
+    subtitle: "Appraisal",
+    image: "https://teamsuite.pk/zimages/icn_PerformanceApp.png",
+    links: [
+      {
+        title: "Employees Performance",
+        url: "/employees/employees-performance",
+      },
+      {
+        title: "KPIs",
+        url: "/employees/kpis",
       },
     ],
   },
@@ -83,6 +102,7 @@ const gotoLink = (url) => {
   margin: 0px;
   text-transform: uppercase;
 }
+
 .menu p {
   font-size: 25px;
   text-transform: uppercase;

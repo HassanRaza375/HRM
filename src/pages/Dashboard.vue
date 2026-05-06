@@ -54,7 +54,7 @@
     <!-- table -->
     <v-col cols="12">
       <div class="text-h6 mb-3">Employees Latest</div>
-      <DataTables :headers="headers" :items="employees" />
+      <DataTables :headers="headers" :items="employees" :PageName="PageName" :actionsToShow="actionsToShow" />
     </v-col>
   </v-row>
 </template>
@@ -65,9 +65,19 @@ import DataTables from "../components/ui/DataTables.vue";
 import EmployeeGrowthChart from "../components/charts/EmployeeGrowthChart.vue";
 import GenderRatioChart from "../components/charts/GenderRatioChart.vue";
 import NewHiringCard from "../components/charts/NewHiringCard.vue";
+import { onMounted, ref } from "vue";
+import { useEmployeeStore } from "../stores/employeeStore";
 
 const router = useRouter();
-
+const employeeStore = useEmployeeStore();
+const employees = ref([]);
+const PageName = "Dashboard";
+const actionsToShow = {
+  view: false,
+  edit: false,
+  delete: false,
+  addNew: false,
+};
 const goToAddEmployee = () => {
   router.push("/employees/create");
 };
@@ -75,38 +85,56 @@ const goToAddEmployee = () => {
 const goToCreateTemplate = () => {
   router.push("/templates/create");
 };
-const stats = [
-  {
-    title: "Total Employees",
-    value: 120,
-    icon: "mdi-account-group",
-    color: "primary",
-  },
-  {
-    title: "Active Employees",
-    value: 95,
-    icon: "mdi-account-check",
-    color: "success",
-  },
-  {
-    title: "Total Templates",
-    value: 30,
-    icon: "mdi-file-document",
-    color: "info",
-  },
-];
+const stats = ref(
+  [
+    {
+      title: "Total Employees",
+      value: 0,
+      icon: "mdi-account-group",
+      color: "primary",
+    },
+    {
+      title: "Active Employees",
+      value: 0,
+      icon: "mdi-account-check",
+      color: "success",
+    },
+    {
+      title: "Total Templates",
+      value: 0,
+      icon: "mdi-file-document",
+      color: "info",
+    },
+  ]);
 
 const headers = [
+  { title: "#", key: "number" },
+  { title: "Employee ID", key: "employeeid" },
   { title: "Name", key: "name" },
-  { title: "Email", key: "email" },
-  { title: "Role", key: "role" },
-  { title: "Status", key: "status" },
+  { title: "Designation", key: "designation" },
+  { title: "Reporting Line", key: "reportingLine" },
 ];
 
-const employees = [
-  { name: "Ali", email: "ali@test.com", role: "Admin", status: "Active" },
-  { name: "Ahmed", email: "ahmed@test.com", role: "User", status: "Inactive" },
-];
+onMounted(() => {
+  if (employeeStore.$state.employees.length > 0) {
+    employees.value = employeeStore.$state.employees.map((emp, index) => ({
+      number: index + 1,
+      ...emp,
+    }));
+    stats.value = stats.value.map((stat) => {
+      if (stat.title === "Total Employees") {
+        return { ...stat, value: employeeStore.$state.employees.length };
+      }
+      if (stat.title === "Active Employees") {
+        return { ...stat, value: employeeStore.$state.employees.filter(e => e.status === "active").length };
+      }
+      if (stat.title === "Total Templates") {
+        return { ...stat, value: employeeStore.$state.templates.length };
+      }
+      return stat;
+    });
+  }
+});
 </script>
 
 <style></style>
