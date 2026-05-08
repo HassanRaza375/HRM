@@ -12,7 +12,10 @@
 
     <!-- Content -->
     <v-main>
-      <v-container fluid> <router-view /> </v-container>
+      <v-container fluid>
+        <router-view />
+        <AppSnackbar />
+      </v-container>
     </v-main>
 
     <!-- Footer -->
@@ -27,8 +30,9 @@ import { useRouter } from "vue-router";
 import { useAppTheme } from "../composables/useTheme";
 import Header from "../components/layout/header.vue";
 import Footer from "../components/layout/footer.vue";
-import LoadingLayout from "../layouts/LoadingLayout.vue";
 import Sidebar from "../components/layout/sidebar.vue";
+import LoadingLayout from "../layouts/LoadingLayout.vue";
+import AppSnackbar from "../components/ui/SnackBar.vue";
 import { useEmployeeStore } from "../stores/employeeStore";
 
 const router = useRouter();

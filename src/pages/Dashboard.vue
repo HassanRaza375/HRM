@@ -29,13 +29,23 @@
 
         <v-row>
           <v-col cols="12" sm="6" md="3">
-            <v-btn block color="primary" prepend-icon="mdi-account-plus" @click="goToAddEmployee">
+            <v-btn
+              block
+              color="primary"
+              prepend-icon="mdi-account-plus"
+              @click="goToAddEmployee"
+            >
               Add Employee
             </v-btn>
           </v-col>
 
           <v-col cols="12" sm="6" md="3">
-            <v-btn block color="secondary" prepend-icon="mdi-file-plus" @click="goToCreateTemplate">
+            <v-btn
+              block
+              color="secondary"
+              prepend-icon="mdi-file-plus"
+              @click="goToCreateTemplate"
+            >
               Create Template
             </v-btn>
           </v-col>
@@ -44,7 +54,10 @@
     </v-col>
     <!-- Growth Chart -->
     <v-col cols="12" md="8">
-      <EmployeeGrowthChart :labels="['Jan', 'Feb', 'Mar', 'Apr']" :data="[5, 10, 15, 20]" />
+      <EmployeeGrowthChart
+        :labels="['Jan', 'Feb', 'Mar', 'Apr']"
+        :data="[5, 10, 15, 20]"
+      />
     </v-col>
     <!-- Gender Ratio -->
     <v-col cols="12" md="4">
@@ -54,7 +67,12 @@
     <!-- table -->
     <v-col cols="12">
       <div class="text-h6 mb-3">Employees Latest</div>
-      <DataTables :headers="headers" :items="employees" :PageName="PageName" :actionsToShow="actionsToShow" />
+      <DataTables
+        :headers="headers"
+        :items="employees"
+        :PageName="PageName"
+        :actionsToShow="actionsToShow"
+      />
     </v-col>
   </v-row>
 </template>
@@ -85,27 +103,26 @@ const goToAddEmployee = () => {
 const goToCreateTemplate = () => {
   router.push("/templates/create");
 };
-const stats = ref(
-  [
-    {
-      title: "Total Employees",
-      value: 0,
-      icon: "mdi-account-group",
-      color: "primary",
-    },
-    {
-      title: "Active Employees",
-      value: 0,
-      icon: "mdi-account-check",
-      color: "success",
-    },
-    {
-      title: "Total Templates",
-      value: 0,
-      icon: "mdi-file-document",
-      color: "info",
-    },
-  ]);
+const stats = ref([
+  {
+    title: "Total Employees",
+    value: 0,
+    icon: "mdi-account-group",
+    color: "primary",
+  },
+  {
+    title: "Active Employees",
+    value: 0,
+    icon: "mdi-account-check",
+    color: "success",
+  },
+  {
+    title: "Total Templates",
+    value: 0,
+    icon: "mdi-file-document",
+    color: "info",
+  },
+]);
 
 const headers = [
   { title: "#", key: "number" },
@@ -117,16 +134,23 @@ const headers = [
 
 onMounted(() => {
   if (employeeStore.$state.employees.length > 0) {
-    employees.value = employeeStore.$state.employees.reverse().map((emp, index) => ({
-      number: index + 1,
-      ...emp,
-    }));
+    employees.value = [...employeeStore.$state.employees]
+      .reverse()
+      .map((emp, index) => ({
+        number: index + 1,
+        ...emp,
+      }));
     stats.value = stats.value.map((stat) => {
       if (stat.title === "Total Employees") {
         return { ...stat, value: employeeStore.$state.employees.length };
       }
       if (stat.title === "Active Employees") {
-        return { ...stat, value: employeeStore.$state.employees.filter(e => e.status === "active").length };
+        return {
+          ...stat,
+          value: employeeStore.$state.employees.filter(
+            (e) => e.status === "active",
+          ).length,
+        };
       }
       if (stat.title === "Total Templates") {
         return { ...stat, value: employeeStore.$state.templates.length };

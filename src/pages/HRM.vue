@@ -47,7 +47,10 @@ let data = ref([
         title: "Bulk Upload Employees",
         url: "/employees/bulk-upload",
       },
-
+      {
+        title: "Generate Docs",
+        url: "/employees/generate-docs",
+      },
     ],
   },
   {
