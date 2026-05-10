@@ -1,0 +1,23 @@
+// src/constants/departments.js
+export const departments = [
+    "Administration",
+    "Human Resources",
+    "Information Technology",
+    "Software Development",
+    "Quality Assurance",
+    "UI/UX Design",
+    "Project Management",
+    "Sales",
+    "Marketing",
+    "Customer Support",
+    "Finance",
+    "Accounts",
+    "Business Development",
+    "Operations",
+    "DevOps",
+    "Cyber Security",
+    "Data Analytics",
+    "Product Management",
+    "Content Writing",
+    "Training & Development",
+];

@@ -29,23 +29,13 @@
 
         <v-row>
           <v-col cols="12" sm="6" md="3">
-            <v-btn
-              block
-              color="primary"
-              prepend-icon="mdi-account-plus"
-              @click="goToAddEmployee"
-            >
+            <v-btn block color="primary" prepend-icon="mdi-account-plus" @click="goToAddEmployee">
               Add Employee
             </v-btn>
           </v-col>
 
           <v-col cols="12" sm="6" md="3">
-            <v-btn
-              block
-              color="secondary"
-              prepend-icon="mdi-file-plus"
-              @click="goToCreateTemplate"
-            >
+            <v-btn block color="secondary" prepend-icon="mdi-file-plus" @click="goToCreateTemplate">
               Create Template
             </v-btn>
           </v-col>
@@ -55,24 +45,18 @@
     <!-- Growth Chart -->
     <v-col cols="12" md="8">
       <EmployeeGrowthChart
-        :labels="['Jan', 'Feb', 'Mar', 'Apr']"
-        :data="[5, 10, 15, 20]"
-      />
+        :labels="['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']"
+        :data="EmployeeGrowthByYear" />
     </v-col>
     <!-- Gender Ratio -->
     <v-col cols="12" md="4">
-      <GenderRatioChart :male="70" :female="30" />
+      <GenderRatioChart :MaleFemaleRatio="EmployeesRatio" />
     </v-col>
 
     <!-- table -->
     <v-col cols="12">
       <div class="text-h6 mb-3">Employees Latest</div>
-      <DataTables
-        :headers="headers"
-        :items="employees"
-        :PageName="PageName"
-        :actionsToShow="actionsToShow"
-      />
+      <DataTables :headers="headers" :items="employees" :PageName="PageName" :actionsToShow="actionsToShow" />
     </v-col>
   </v-row>
 </template>
@@ -129,9 +113,14 @@ const headers = [
   { title: "Employee ID", key: "employeeid" },
   { title: "Name", key: "name" },
   { title: "Designation", key: "designation" },
+  { title: "Department", key: "department" },
   { title: "Reporting Line", key: "reportingLine" },
 ];
-
+const EmployeesRatio = ref({
+  Male: 0,
+  Female: 0,
+})
+const EmployeeGrowthByYear = ref([])
 onMounted(() => {
   if (employeeStore.$state.employees.length > 0) {
     employees.value = [...employeeStore.$state.employees]
@@ -157,6 +146,28 @@ onMounted(() => {
       }
       return stat;
     });
+    EmployeeGrowthByYear.value = employeeStore.$state.employees.reduce(
+      (acc, emp) => {
+        if (!emp.doj) return acc;
+
+        const month = new Date(emp.doj).getMonth();
+
+        if (month >= 0 && month <= 11) {
+          acc[month] += 1;
+        }
+
+        return acc;
+      },
+      Array(12).fill(0)
+    );
+    EmployeesRatio.value = employeeStore.$state.employees.reduce((acc, emp) => {
+      if (emp.gender === "male") {
+        acc.Male++;
+      } else {
+        acc.Female++;
+      }
+      return acc;
+    }, { Male: 0, Female: 0 });
   }
 });
 </script>

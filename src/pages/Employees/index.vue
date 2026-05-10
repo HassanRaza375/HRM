@@ -22,6 +22,7 @@ const headers = [
   { title: "Employee ID", key: "employeeid" },
   { title: "Name", key: "name" },
   { title: "Designation", key: "designation" },
+  { title: "Department", key: "department" },
   { title: "Current Salary", key: "currentsalary" },
   { title: "Salary at Hiring", key: "salaryathiring" },
   { title: "After Probation", key: "afterprobation(ifapplicable)" },

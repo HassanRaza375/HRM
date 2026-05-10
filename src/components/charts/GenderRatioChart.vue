@@ -10,8 +10,13 @@ import { ref, onMounted } from "vue";
 import Chart from "chart.js/auto";
 
 const props = defineProps({
-  male: Number,
-  female: Number,
+  EmployeesRatio: {
+    type: Object,
+    default: () => ({
+      male: 1,
+      female: 1,
+    }),
+  },
 });
 
 const chartRef = ref(null);
@@ -23,7 +28,7 @@ onMounted(() => {
       labels: ["Male", "Female"],
       datasets: [
         {
-          data: [props.male, props.female],
+          data: [props.EmployeesRatio.male, props.EmployeesRatio.female],
           backgroundColor: ["#2a9fe8", "#014e78"],
         },
       ],

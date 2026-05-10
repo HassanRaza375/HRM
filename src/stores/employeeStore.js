@@ -54,6 +54,7 @@ export const useEmployeeStore = defineStore("employee", {
       if (index !== -1) {
         this.employees[index] = employee;
       }
+      this.save();
     },
     addEmployee(employee) {
       this.employees.push(employee);
