@@ -5,6 +5,8 @@
             <v-card-text>
                 <div v-for="(value, key) in selectedRow" :key="key">
                     <strong>{{ key }}:</strong> {{ value || '-' }}
+                    <v-btn v-if="props.allowCopy" @click="copyToClipboard(key)" icon="mdi-content-copy"
+                        size="small"></v-btn>
                 </div>
             </v-card-text>
             <v-card-actions>
@@ -16,7 +18,8 @@
 
 <script setup>
 import { computed } from "vue";
-
+import { useEmployeeStore } from "../../stores/employeeStore";
+const employeeStore = useEmployeeStore();
 const props = defineProps({
     modelValue: Boolean,
     title: {
@@ -31,6 +34,10 @@ const props = defineProps({
         type: String,
         default: "Cancel",
     },
+    allowCopy: {
+        type: Boolean,
+        default: false,
+    }
 });
 
 const emit = defineEmits(["update:modelValue", "confirm"]);
@@ -39,7 +46,12 @@ const dialog = computed({
     get: () => props.modelValue,
     set: (value) => emit("update:modelValue", value),
 });
-
+const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+    employeeStore.callNotification({
+        text: `Copied ${text} to clipboard`,
+    });
+};
 // Cancel
 const onCancel = () => {
     dialog.value = false;

@@ -38,7 +38,7 @@ export const bankOpeningTemplate = {
       <p>Your co-operation will be highly appreciated</p>
       <p class="my-4">
         Best Regards, <br />
-        {{Name}}
+        {{name}}
       </p>
     </section>
     `,

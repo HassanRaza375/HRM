@@ -19,7 +19,7 @@ export const appointmentLetterTemplate = {
         <h3>Appointment Letter</h3>
         <p>
           This is to certify that
-          <strong>{{employeename}}</strong>
+          <strong>{{name}}</strong>
           works with us as
           <strong>{{designation}}</strong>.
         </p>
@@ -29,6 +29,6 @@ export const appointmentLetterTemplate = {
     footer: ``,
   },
 
-  variables: ["employeename", "designation", "basicsalary"],
+  variables: ["name", "designation", "currentsalary"],
   dateCreated: new Date(12 / 12 / 2022).toDateString(),
 };
