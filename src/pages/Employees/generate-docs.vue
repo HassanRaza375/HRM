@@ -4,9 +4,7 @@
     <v-col cols="12">
       <v-card class="rounded-0">
         <v-card-text>
-          <div
-            class="d-flex justify-space-between align-center flex-wrap ga-2"
-          >
+          <div class="d-flex justify-space-between align-center flex-wrap ga-2">
             <div>
               <h1 class="text-h4 font-weight-bold ma-0">Generate Docs</h1>
               <p class="text-medium-emphasis ma-0">
@@ -97,10 +95,7 @@
         <v-card-title>Variables Used</v-card-title>
 
         <v-card-text>
-          <div
-            v-if="detectedVariables.length"
-            class="d-flex flex-wrap ga-2"
-          >
+          <div v-if="detectedVariables.length" class="d-flex flex-wrap ga-2">
             <v-chip
               v-for="item in detectedVariables"
               :key="item"
@@ -111,9 +106,7 @@
             </v-chip>
           </div>
 
-          <div v-else class="text-medium-emphasis">
-            No variables detected
-          </div>
+          <div v-else class="text-medium-emphasis">No variables detected</div>
         </v-card-text>
       </v-card>
 
@@ -122,16 +115,10 @@
         v-if="missingVariables.length"
         class="rounded-0 border border-error"
       >
-        <v-card-title class="text-error">
-          Missing Employee Data
-        </v-card-title>
+        <v-card-title class="text-error"> Missing Employee Data </v-card-title>
 
         <v-card-text>
-          <v-alert
-            type="warning"
-            variant="tonal"
-            density="comfortable"
-          >
+          <v-alert type="warning" variant="tonal" density="comfortable">
             Some variables do not exist in employee data
           </v-alert>
 
@@ -203,12 +190,7 @@
 
         <iframe
           :srcdoc="generatedHtml"
-          style="
-            width: 100%;
-            height: 100%;
-            border: none;
-            background: #e0e0e0;
-          "
+          style="width: 100%; height: 100%; border: none; background: #e0e0e0"
         />
       </v-card>
     </v-dialog>
@@ -217,15 +199,14 @@
 
 <script setup>
 import { ref, computed, onMounted } from "vue";
-
+import { useEmployeeStore } from "../../stores/employeeStore";
 /*
 |--------------------------------------------------------------------------
 | STORAGE KEYS
 |--------------------------------------------------------------------------
 */
 const EMPLOYEE_STORAGE_KEY = "employees";
-const TEMPLATE_STORAGE_KEY = "templates";
-
+const employeeStore = useEmployeeStore();
 /*
 |--------------------------------------------------------------------------
 | STATE
@@ -249,13 +230,9 @@ const previewFrame = ref(null);
 |--------------------------------------------------------------------------
 */
 onMounted(() => {
-  employees.value = JSON.parse(
-    localStorage.getItem(EMPLOYEE_STORAGE_KEY) || "[]"
-  );
+  employees.value = employeeStore.$state.employees;
 
-  templates.value = JSON.parse(
-    localStorage.getItem(TEMPLATE_STORAGE_KEY) || "[]"
-  );
+  templates.value = employeeStore.getAllTemplates();
 });
 
 /*
@@ -264,15 +241,11 @@ onMounted(() => {
 |--------------------------------------------------------------------------
 */
 const selectedTemplate = computed(() => {
-  return templates.value.find(
-    (x) => x.id === selectedTemplateId.value
-  );
+  return templates.value.find((x) => x.id === selectedTemplateId.value);
 });
 
 const selectedEmployee = computed(() => {
-  return employees.value.find(
-    (x) => x.employeeid === selectedEmployeeId.value
-  );
+  return employees.value.find((x) => x.employeeid === selectedEmployeeId.value);
 });
 
 /*
@@ -310,33 +283,14 @@ const generatedHtml = computed(() => {
       </div>
     `;
   }
-
   const html = `
     <style>
-      body{
-        background:#e0e0e0;
-        padding:30px;
-      }
-
-      .a4-page{
-        width:210mm;
-        min-height:297mm;
-        margin:auto;
-        background:white;
-        box-shadow:0 0 10px rgba(0,0,0,.1);
-        overflow:hidden;
-      }
-
-      ${selectedTemplate.value.css}
+      ${selectedTemplate.value?.content.css}
     </style>
-
-    <div class="a4-page">
-      ${selectedTemplate.value.header}
-      ${selectedTemplate.value.body}
-      ${selectedTemplate.value.footer}
-    </div>
+      ${selectedTemplate.value?.content.header}
+      ${selectedTemplate.value?.content.body}
+      ${selectedTemplate.value?.content.footer}
   `;
-
   return renderTemplate(html, selectedEmployee.value);
 });
 
@@ -349,9 +303,9 @@ const detectedVariables = computed(() => {
   if (!selectedTemplate.value) return [];
 
   const fullHtml = `
-    ${selectedTemplate.value.header}
-    ${selectedTemplate.value.body}
-    ${selectedTemplate.value.footer}
+    ${selectedTemplate.value.content.header}
+    ${selectedTemplate.value.content.body}
+    ${selectedTemplate.value.content.footer}
   `;
 
   const matches = fullHtml.match(/{{(.*?)}}/g) || [];
@@ -403,8 +357,7 @@ const downloadHtml = () => {
 
   link.href = url;
 
-  link.download =
-    documentName.value || "generated-document.html";
+  link.download = documentName.value || "generated-document.html";
 
   link.click();
 

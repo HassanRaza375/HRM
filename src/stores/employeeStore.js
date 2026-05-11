@@ -2,6 +2,7 @@
 import { defineStore } from "pinia";
 import { storageService } from "../services/storageService";
 import { de } from "vuetify/locale";
+import { templateList } from "../templates/index.js";
 export const useEmployeeStore = defineStore("employee", {
   state: () => ({
     employees: [],
@@ -31,11 +32,12 @@ export const useEmployeeStore = defineStore("employee", {
     },
     load() {
       this.employees = storageService.get("employees") || [];
-      this.templates = storageService.get("templates") || [];
+      this.templates = [...templateList] || [];
       this.isAuthenticated = storageService.get("isAuthenticated");
     },
     save() {
       storageService.set("employees", this.employees);
+      this.load();
     },
     saveTemplates() {
       storageService.set("templates", this.templates);
@@ -44,6 +46,7 @@ export const useEmployeeStore = defineStore("employee", {
       storageService.set("isAuthenticated", false);
       window.location.reload();
     },
+    // Employee
     getEmployeeById(id) {
       return this.employees.find((emp) => emp.employeeid === id);
     },
@@ -63,6 +66,28 @@ export const useEmployeeStore = defineStore("employee", {
     deleteEmployee(id) {
       this.employees = this.employees.filter((emp) => emp.employeeid !== id);
       this.save();
+    },
+    // Templates
+    getAllTemplates() {
+      return this.templates;
+    },
+    getTemplateById(id) {
+      return this.templates.find((emp) => emp.id === id);
+    },
+    updateTemplate(template) {
+      const index = this.templates.findIndex((emp) => emp.id === template.id);
+      if (index !== -1) {
+        this.templates[index] = template;
+      }
+      this.saveTemplates();
+    },
+    addTemplate(template) {
+      this.templates.push(template);
+      this.saveTemplates();
+    },
+    deleteTemplate(id) {
+      this.templates = this.templates.filter((emp) => emp.id !== id);
+      this.saveTemplates();
     },
   },
 });

@@ -102,7 +102,9 @@
     <v-col cols="12" md="6" sm="12">
       <v-card class="rounded-0">
         <v-card-text>
-          <h3 class="my-0 pb-2 text-headline-small font-weight-bold">Preview</h3>
+          <h3 class="my-0 pb-2 text-headline-small font-weight-bold">
+            Preview
+          </h3>
           <iframe
             style="
               width: 100%;
@@ -119,7 +121,9 @@
 <script setup>
 import { useRoute, useRouter } from "vue-router";
 import { ref, computed, onMounted } from "vue";
+import { useEmployeeStore } from "../../stores/employeeStore";
 
+const employeeStore = useEmployeeStore();
 const route = useRoute();
 const router = useRouter();
 
@@ -141,179 +145,18 @@ const previewHtml = computed(() => {
 const goBack = () => {
   router.back();
 };
+const loadEditTemplate = (id) => {
+  const template = employeeStore.getTemplateById(id);
+  templateBody.value.css = template.content.css;
+  templateBody.value.body = template.content.body;
+  templateBody.value.footer = template.content.footer;
+  templateBody.value.header = template.content.header;
+};
 onMounted(() => {
-  templateBody.value.css = `:root {
-    --header-height: 250px;
-    --footer-height: 75px;
-    --white: #ffffff;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
-}
-
-
-header {
-    height: var(--header-height);
-    width: 100%;
-    background-color: #fff;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-}
-
-footer {
-    height: var(--footer-height);
-    width: 100%;
-    padding: 0 30px;
-}
-
-.inherit-height {
-    height: inherit;
-}
-
-.row {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.justify-space-between {
-    justify-content: space-between;
-}
-
-.col {
-    padding: 10px;
-}
-
-.sefl-center {
-    align-self: center;
-}
-
-.company {
-    margin: 20px;
-    margin-top: 50px;
-    padding: 2px;
-    line-height: 2.5;
-    font-style: italic;
-    color: #3498db;
-    border-top: 5px solid #3498db;
-    border-bottom: 5px solid #3498db;
-}
-
-.page-1 {
-    text-align: center;
-    padding-top: 210px;
-}
-
-.mt-4 {
-    margin-top: 24px;
-}
-
-.my-4 {
-    margin-top: 24px;
-    margin-bottom: 24px;
-}
-
-.ma-0 {
-    margin: 0 !important;
-}
-
-.page {
-    page-break-after: always;
-}
-
-.width-100 {
-    width: 100%;
-}
-
-section {
-    padding: 0 48px;
-}
-
-.text-justify {
-    text-align: justify;
-}
-
-.text-center {
-    text-align: center;
-}
-
-.text-right {
-    text-align: right;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-ul {
-    margin-bottom: .5em;
-}
-
-li {
-    margin-left: 25px;
-}
-
-.privacy {
-    border: 1px solid grey;
-    padding: 20px;
-    margin: 40px 20px 20px 20px;
-    background-color: rgb(239, 239, 239);
-}
-
-@media print {
-    header {
-        position: fixed;
-        top: 0;
-    }
-
-    footer {
-        position: fixed;
-        bottom: 0;
-    }
-
-    .header-space {
-        height: var(--header-height);
-    }
-
-    .footer-space {
-        height: var(--footer-height);
-    }
-}`;
+  if (route.query.id) {
+    loadEditTemplate(route.query.id);
+  }
 });
-templateBody.value.body = `<section style="margin-top: 100px;">
-      <h4 class="text-center my-4">Bank Account Opening Request Letter For Company Employees</h4>
-      <p>
-        To, <br />
-        The Branch Manager, <br />
-        {{Bank Name}}, <br />
-        {{Branch Address}}, <br />
-        {{Date}}. <br />
-      </p>
-      <p class="my-4">Subject: Account opening request letter for employees.</p>
-      <p class="my-4">Respected Sir,</p>
-      <p class="text-justify">
-        You are requested that {{Employee}} Son of {{FatherName}}
-        is an employee of this company. He is employed as a {{Designation}}. His monthly salary is approximately Rs {{BasicPay}},
-      </p>
-      <p class="text-justify my-4">
-        He needs to open a new savings bank account in your bank for his salary.
-        So, you are requested that open a bank account of the above-named
-        employee on behalf of this company.
-      </p>
-      <p>Your co-operation will be highly appreciated</p>
-      <p class="my-4">
-        Best Regards, <br />
-        {{Name}}
-      </p>
-    </section>`;
 </script>
 <style scoped>
 .v-expansion-panels .v-expansion-panel-text__wrapper {

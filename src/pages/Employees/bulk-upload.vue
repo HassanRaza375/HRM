@@ -69,6 +69,7 @@ import { useEmployeeStore } from "../../stores/employeeStore";
 import formatKey from "../../utils/formatekey";
 import * as XLSX from "xlsx";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 const employeeStore = useEmployeeStore();
 const tableData = ref([]);
@@ -77,6 +78,7 @@ const Loading = ref(false);
 const dialog = ref(false);
 const deleteDialog = ref(false);
 const selectedRow = ref({});
+const router = useRouter();
 const dialogSetting = ref({
   title: "",
   message: "",
@@ -131,7 +133,7 @@ const clearData = (data = {}) => {
 //  Save to localStorage
 const saveData = () => {
   Loading.value = true;
-
+  employeeStore.toggleMainContent();
   try {
     // Transform keys here
     const formattedData = tableData.value.map((row) => {
@@ -150,16 +152,22 @@ const saveData = () => {
 
     employeeStore.save();
     employeeStore.load();
-    employeeStore.toggleMainContent();
-
+    tableData.value = [];
     employeeStore.callNotification({
       text: "Employee added successfully",
       color: "success",
     });
   } catch (err) {
-    console.log(err);
+    employeeStore.callNotification({
+      text: `${err}`,
+      color: "error",
+    });
   } finally {
     Loading.value = false;
+    setTimeout(() => {
+      employeeStore.toggleMainContent();
+    }, 2000);
+    router.push("/");
   }
 };
 //  View Row
