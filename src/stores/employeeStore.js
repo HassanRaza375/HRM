@@ -92,13 +92,15 @@ export const useEmployeeStore = defineStore("employee", {
     },
     // get hierarchy
     getOrganogram() {
-      this.organogram = storageService.get("employees").map((emp) => ({
-        name: emp.name,
-        role: emp.designation,
-        reportingline: emp.reportingline,
-      }));
-      debugger
-      return this.organogram;
+      if (storageService.get("employees").length === 0) return [];
+      else {
+        return storageService.get("employees").map((emp) => ({
+          id: emp.employeeid,
+          name: emp.name,
+          role: emp.designation,
+          reportingline: emp.reportingline,
+        }));
+      }
     },
   },
 });

@@ -22,7 +22,7 @@
           <div>
             <strong>{{ item.name }}</strong>
             <div class="text-caption text-grey">
-              {{ item.position }}
+              {{ item.designation }}
             </div>
           </div>
         </template>
@@ -32,42 +32,59 @@
 </template>
 
 <script setup>
-const employees = [
-  {
-    id: 1,
-    name: 'CEO - Ahmed Khan',
-    position: 'Chief Executive Officer',
-    children: [
-      {
-        id: 2,
-        name: 'Sara Ali',
-        position: 'HR Manager',
-        children: [
-          {
-            id: 3,
-            name: 'Usman',
-            position: 'Recruiter',
-          },
-        ],
-      },
-      {
-        id: 4,
-        name: 'Bilal',
-        position: 'IT Manager',
-        children: [
-          {
-            id: 5,
-            name: 'Hamza',
-            position: 'Frontend Developer',
-          },
-          {
-            id: 6,
-            name: 'Ayesha',
-            position: 'Backend Developer',
-          },
-        ],
-      },
-    ],
-  },
-]
+import { onMounted, ref } from "vue";
+import { useEmployeeStore } from "../stores/employeeStore";
+
+const employstore = useEmployeeStore();
+const employees = ref([]);
+
+const buildOrganoObj = (data) => {
+  // CEO ROOT
+  const ceo = {
+    id: "sat-ceo-1",
+    name: "Sarmad",
+    designation: "CEO",
+    children: [],
+  };
+
+  // create map
+  const map = {};
+
+  // first pass
+  data.forEach((emp) => {
+    map[emp.name] = {
+      id: emp.id,
+      name: emp.name,
+      designation: emp.role,
+      reportingline: emp.reportingline,
+      children: [],
+    };
+  });
+
+  // second pass
+  data.forEach((emp) => {
+    const employeeNode = map[emp.name];
+
+    // if reports to CEO
+    if (emp.reportingline.toLowerCase() === "sarmad") {
+      ceo.children.push(employeeNode);
+    } else {
+      // reports to another employee
+      const manager = map[emp.reportingline];
+
+      if (manager) {
+        manager.children.push(employeeNode);
+      } else {
+        // fallback if manager not found
+        ceo.children.push(employeeNode);
+      }
+    }
+  });
+
+  employees.value = [ceo];
+};
+
+onMounted(() => {
+  buildOrganoObj(employstore.getOrganogram());
+});
 </script>
