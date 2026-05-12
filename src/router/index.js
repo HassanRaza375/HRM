@@ -3,6 +3,7 @@ import { storageService } from "../services/storageService";
 
 // Pages
 import Dashboard from "../pages/Dashboard.vue";
+import Organogram from "../pages/OrgChart.vue";
 
 import Employees from "../pages/Employees/index.vue";
 import CreateEmployee from "../pages/Employees/create.vue";
@@ -33,6 +34,7 @@ const routes = [
     meta: { requiresAuth: true },
     children: [
       { path: "", component: Dashboard },
+      { path: "organogram", component: Organogram },
       { path: "hrm", component: HRM },
       { path: "report", component: Report },
 

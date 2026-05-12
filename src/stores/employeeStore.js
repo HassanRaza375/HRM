@@ -8,6 +8,7 @@ export const useEmployeeStore = defineStore("employee", {
     employees: [],
     templates: [],
     notification: [],
+    organogram: [],
     isAuthenticated: false,
     showMainContent: false,
   }),
@@ -88,6 +89,16 @@ export const useEmployeeStore = defineStore("employee", {
     deleteTemplate(id) {
       this.templates = this.templates.filter((emp) => emp.id !== id);
       this.saveTemplates();
+    },
+    // get hierarchy
+    getOrganogram() {
+      this.organogram = storageService.get("employees").map((emp) => ({
+        name: emp.name,
+        role: emp.designation,
+        reportingline: emp.reportingline,
+      }));
+      debugger
+      return this.organogram;
     },
   },
 });

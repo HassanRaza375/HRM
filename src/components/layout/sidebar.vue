@@ -70,6 +70,7 @@ const menuItems = [
   { title: "HCM", icon: "mdi-account", path: "/hrm" },
   { title: "Reports", icon: "mdi-file-chart-outline", path: "/report" },
   { title: "Setting", icon: "mdi-cog", path: "/settings" },
+  { title: "Organogram", icon: "mdi-account-group", path: "/organogram" },
   // { title: "Employees", icon: "mdi-account-group", path: "/employees" },
   // { title: "Templates", icon: "mdi-file-document", path: "/templates" },
 ];
