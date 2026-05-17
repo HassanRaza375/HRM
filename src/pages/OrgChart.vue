@@ -66,7 +66,7 @@ const buildOrganoObj = (data) => {
     const employeeNode = map[emp.name];
 
     // if reports to CEO
-    if (emp.reportingline.toLowerCase() === "sarmad") {
+    if (emp.reportingline?.toLowerCase() === "CEO") {
       ceo.children.push(employeeNode);
     } else {
       // reports to another employee

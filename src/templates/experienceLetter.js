@@ -30,5 +30,5 @@ export const experienceLetterTemplate = {
   },
 
   variables: ["name", "designation", "currentsalary"],
-  dateCreated: new Date(12 / 12 / 2022).toDateString(),
+  dateCreated: "4th Jan 2026",
 };

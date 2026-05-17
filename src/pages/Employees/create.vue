@@ -86,11 +86,12 @@
               </v-col>
 
               <v-col cols="12" md="4">
-                <v-text-field
+                <v-select
                   v-model="form.reportingline"
+                  label="Reporting Line"
                   variant="outlined"
                   density="compact"
-                  label="Reporting Line"
+                  :items="reportinglines"
                   :rules="[required]"
                 />
               </v-col>
