@@ -1,5 +1,5 @@
 export const defaultTemplateCSS = `
- :root {
+        :root {
             --header-height: 250px;
             --footer-height: 75px;
             --white: #ffffff;
@@ -48,6 +48,10 @@ export const defaultTemplateCSS = `
             justify-content: center;
         }
 
+        .justify-end {
+            justify-content: end;
+        }
+
         .col {
             padding: 10px;
         }
@@ -78,6 +82,10 @@ export const defaultTemplateCSS = `
 
         .mt-2 {
             margin-top: 8px;
+        }
+
+        .mt-3 {
+            margin-top: 16px;
         }
 
         .mt-4 {
@@ -125,6 +133,10 @@ export const defaultTemplateCSS = `
             padding-left: 0;
         }
 
+        .px-3 {
+            padding-inline: 16px;
+        }
+
         .page {
             page-break-after: always;
         }
@@ -153,6 +165,14 @@ export const defaultTemplateCSS = `
             text-decoration: underline;
         }
 
+        .text-white {
+            color: #ffffff;
+        }
+
+        .bg-white {
+            background-color: #ffffff;
+        }
+
         h1,
         h2,
         h3,
@@ -172,11 +192,45 @@ export const defaultTemplateCSS = `
             font-weight: bold;
         }
 
+        .light {
+            font-weight: normal;
+        }
+
         .privacy {
             border: 1px solid grey;
             padding: 20px;
             margin: 40px 20px 20px 20px;
             background-color: rgb(239, 239, 239);
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        /* border */
+        border-0 {
+            border: 0;
+        }
+
+        border-r-0 {
+            border-right: 0;
+        }
+
+        border-l-0 {
+            border-left: 0;
+        }
+
+        border-t-0 {
+            border-top: 0;
+        }
+
+        border-b-0 {
+            border-bottom: 0;
+        }
+
+        @page {
+            size: A4;
+            margin: 5mm;
         }
 
         @media print {
@@ -197,5 +251,21 @@ export const defaultTemplateCSS = `
             .footer-space {
                 height: var(--footer-height);
             }
+        }
+
+        /* custom */
+        .salary--table {
+            border: 1px solid #000;
+        }
+
+        .salary--table tr th,
+        .salary--table tr td {
+            padding: 3px;
+            font-size: 14px;
+        }
+
+        .border-table tr th,
+        .border-table tr td {
+            border: 1px solid #000;
         }
 `;

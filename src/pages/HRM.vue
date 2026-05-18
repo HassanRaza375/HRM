@@ -51,6 +51,10 @@ let data = ref([
         title: "Generate Docs",
         url: "/employees/generate-docs",
       },
+      {
+        title: "Salary",
+        url: "/employees/salary",
+      },
     ],
   },
   {

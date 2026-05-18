@@ -10,6 +10,7 @@ import CreateEmployee from "../pages/Employees/create.vue";
 import BulkUpload from "../pages/Employees/bulk-upload.vue";
 import EmployeesLeaves from "../pages/Employees/employees-leaves.vue";
 import GenerateDocs from "../pages/Employees/generate-docs.vue";
+import Salary from "../pages/Employees/salary.vue";
 
 import Templates from "../pages/Templates/index.vue";
 import TemplatesCreate from "../pages/Templates/create.vue";
@@ -43,6 +44,7 @@ const routes = [
       { path: "employees/create", component: CreateEmployee },
       { path: "employees/generate-docs", component: GenerateDocs },
       { path: "employees/employees-leaves", component: EmployeesLeaves },
+      { path: "employees/salary", component: Salary },
 
       { path: "templates", component: Templates },
       { path: "templates/create", component: TemplatesCreate },
