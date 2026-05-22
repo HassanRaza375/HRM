@@ -65,11 +65,12 @@
               </v-col>
 
               <v-col cols="12" md="4">
-                <v-text-field
+                <v-select
                   v-model="form.designation"
                   variant="outlined"
                   density="compact"
                   label="Designation"
+                  :items="companyReportingLine"
                   :rules="[required]"
                 />
               </v-col>
@@ -91,7 +92,7 @@
                   label="Reporting Line"
                   variant="outlined"
                   density="compact"
-                  :items="reportinglines"
+                  :items="companyReportingLine"
                   :rules="[required]"
                 />
               </v-col>
@@ -400,6 +401,7 @@ import { useRoute, useRouter } from "vue-router";
 import { onMounted, ref, watch } from "vue";
 import { useEmployeeStore } from "../../stores/employeeStore";
 import { departments } from "../../constant/departments";
+import { companyReportingLine } from "../../constant/designations";
 import CommonDatePicker from "../../components/ui/CommonDatePicker.vue";
 const tab = ref(0);
 const employees = ref([]);
