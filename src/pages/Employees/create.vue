@@ -296,7 +296,7 @@
 
               <v-col cols="12" md="4">
                 <v-text-field
-                  v-model="form.emergencyname"
+                  v-model="form.emergencycontactname"
                   variant="outlined"
                   density="compact"
                   label="Emergency Name"
@@ -306,7 +306,7 @@
 
               <v-col cols="12" md="4">
                 <v-text-field
-                  v-model="form.emergencyrelation"
+                  v-model="form.emergencycontactrelation"
                   variant="outlined"
                   density="compact"
                   label="Emergency Relation"
@@ -316,7 +316,7 @@
 
               <v-col cols="12" md="4">
                 <v-text-field
-                  v-model="form.emergencynumber"
+                  v-model="form.emergencycontactnumber"
                   variant="outlined"
                   density="compact"
                   label="Emergency Number"
@@ -326,7 +326,7 @@
 
               <v-col cols="12" md="4">
                 <v-text-field
-                  v-model="form.dependentname"
+                  v-model="form.dependentcontactname"
                   variant="outlined"
                   density="compact"
                   label="Dependent Name"
@@ -336,7 +336,7 @@
 
               <v-col cols="12" md="4">
                 <v-text-field
-                  v-model="form.dependentrelation"
+                  v-model="form.dependentcontactrelation"
                   variant="outlined"
                   density="compact"
                   label="Dependent Relation"
@@ -346,7 +346,7 @@
 
               <v-col cols="12" md="4">
                 <v-text-field
-                  v-model="form.dependentnumber"
+                  v-model="form.dependentcontactnumber"
                   variant="outlined"
                   density="compact"
                   label="Dependent Number"
@@ -434,12 +434,12 @@ const form = ref({
   permanentaddress: "",
 
   fathername: "",
-  emergencyname: "",
-  emergencyrelation: "",
-  emergencynumber: "",
-  dependentname: "",
-  dependentrelation: "",
-  dependentnumber: "",
+  emergencycontactname: "",
+  emergencycontactrelation: "",
+  emergencycontactnumber: "",
+  dependentcontactname: "",
+  dependentcontactrelation: "",
+  dependentcontactnumber: "",
 
   bankname: "",
   accounttitle: "",

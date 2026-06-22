@@ -18,3 +18,12 @@ body {
 .gap-6 {
   gap: 1.5rem;
 }
+
+.form-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.form-table tr th, .form-table tr td{
+  border: 1px solid rgb(var(--v-theme-on-surface));
+  padding-inline: 8px;
+}

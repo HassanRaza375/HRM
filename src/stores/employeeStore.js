@@ -102,5 +102,50 @@ export const useEmployeeStore = defineStore("employee", {
         }));
       }
     },
+    // Salary Slip
+    addSalarySlip(slip) {
+      const index = this.employees.findIndex(
+        (emp) => emp.employeeid === slip.employeeid
+      );
+      if (index === -1) return;
+
+      if (!this.employees[index].salarySlips) {
+        this.employees[index].salarySlips = [];
+      }
+
+      const newSlip = {
+        ...slip,
+        id: `SLIP-${Date.now()}`, // unique id for the slip
+      };
+
+      this.employees[index].salarySlips.push(newSlip);
+      this.save();
+    },
+
+    updateSalarySlip(slip) {
+      const empIndex = this.employees.findIndex(
+        (emp) => emp.employeeid === slip.employeeid
+      );
+      if (empIndex === -1) return;
+
+      const slips = this.employees[empIndex].salarySlips || [];
+      const slipIndex = slips.findIndex((s) => s.id === slip.id);
+      if (slipIndex !== -1) {
+        slips[slipIndex] = { ...slip };
+      }
+      this.save();
+    },
+
+    getSalarySlipById(employeeid, slipId) {
+      const emp = this.employees.find((e) => e.employeeid === employeeid);
+      if (!emp || !emp.salarySlips) return null;
+      return emp.salarySlips.find((s) => s.id === slipId);
+    },
+    deleteSalarySlip(employeeid, slipId) {
+      const emp = this.employees.find((e) => e.employeeid === employeeid);
+      if (!emp || !emp.salarySlips) return;
+      emp.salarySlips = emp.salarySlips.filter((s) => s.id !== slipId);
+      this.save();
+    },
   },
 });

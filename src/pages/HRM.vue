@@ -55,6 +55,10 @@ let data = ref([
         title: "Salary",
         url: "/employees/salary",
       },
+      {
+        title: "Salary Slip",
+        url: "/employees/salary-slip",
+      },
     ],
   },
   {

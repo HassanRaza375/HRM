@@ -11,6 +11,8 @@ import BulkUpload from "../pages/Employees/bulk-upload.vue";
 import EmployeesLeaves from "../pages/Employees/employees-leaves.vue";
 import GenerateDocs from "../pages/Employees/generate-docs.vue";
 import Salary from "../pages/Employees/salary.vue";
+import SalarySlip from "../pages/Employees/salary-slip/index.vue";
+import SalaryForm from "../pages/Employees/salary-slip/form.vue";
 
 import Templates from "../pages/Templates/index.vue";
 import TemplatesCreate from "../pages/Templates/create.vue";
@@ -45,6 +47,8 @@ const routes = [
       { path: "employees/generate-docs", component: GenerateDocs },
       { path: "employees/employees-leaves", component: EmployeesLeaves },
       { path: "employees/salary", component: Salary },
+      { path: "employees/salary-slip", component: SalarySlip },
+      { path: "employees/salary-slip/form", component: SalaryForm },
 
       { path: "templates", component: Templates },
       { path: "templates/create", component: TemplatesCreate },
