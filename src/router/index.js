@@ -8,11 +8,13 @@ import Organogram from "../pages/OrgChart.vue";
 import Employees from "../pages/Employees/index.vue";
 import CreateEmployee from "../pages/Employees/create.vue";
 import BulkUpload from "../pages/Employees/bulk-upload.vue";
-import EmployeesLeaves from "../pages/Employees/employees-leaves.vue";
 import GenerateDocs from "../pages/Employees/generate-docs.vue";
 import Salary from "../pages/Employees/salary.vue";
 import SalarySlip from "../pages/Employees/salary-slip/index.vue";
 import SalaryForm from "../pages/Employees/salary-slip/form.vue";
+import LeaveList from "../pages/Employees/leaves/LeavesList.vue";
+import UploadLeaves from "../pages/Employees/leaves/LeaveUpload.vue";
+import LeaveDetails from "../pages/Employees/leaves/LeaveDetail.vue";
 
 import Templates from "../pages/Templates/index.vue";
 import TemplatesCreate from "../pages/Templates/create.vue";
@@ -45,7 +47,19 @@ const routes = [
       { path: "employees/bulk-upload", component: BulkUpload },
       { path: "employees/create", component: CreateEmployee },
       { path: "employees/generate-docs", component: GenerateDocs },
-      { path: "employees/employees-leaves", component: EmployeesLeaves },
+      {
+        path: "employees/leaves",
+        component: LeaveList,
+      },
+      {
+        path: "employees/leaves/upload",
+        component: UploadLeaves,
+      },
+      {
+        path: "employees/leaves/:employeeid",
+        component: LeaveDetails,
+        props: true,
+      },
       { path: "employees/salary", component: Salary },
       { path: "employees/salary-slip", component: SalarySlip },
       { path: "employees/salary-slip/form", component: SalaryForm },

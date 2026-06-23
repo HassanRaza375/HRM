@@ -9,6 +9,7 @@ export const useEmployeeStore = defineStore("employee", {
     templates: [],
     notification: [],
     organogram: [],
+    leaves: [],
     isAuthenticated: false,
     showMainContent: false,
   }),
@@ -34,6 +35,7 @@ export const useEmployeeStore = defineStore("employee", {
     load() {
       this.employees = storageService.get("employees") || [];
       this.templates = [...templateList] || [];
+      this.leaves = storageService.get("leaves") || [];
       this.isAuthenticated = storageService.get("isAuthenticated");
     },
     save() {
@@ -105,7 +107,7 @@ export const useEmployeeStore = defineStore("employee", {
     // Salary Slip
     addSalarySlip(slip) {
       const index = this.employees.findIndex(
-        (emp) => emp.employeeid === slip.employeeid
+        (emp) => emp.employeeid === slip.employeeid,
       );
       if (index === -1) return;
 
@@ -124,7 +126,7 @@ export const useEmployeeStore = defineStore("employee", {
 
     updateSalarySlip(slip) {
       const empIndex = this.employees.findIndex(
-        (emp) => emp.employeeid === slip.employeeid
+        (emp) => emp.employeeid === slip.employeeid,
       );
       if (empIndex === -1) return;
 
@@ -146,6 +148,46 @@ export const useEmployeeStore = defineStore("employee", {
       if (!emp || !emp.salarySlips) return;
       emp.salarySlips = emp.salarySlips.filter((s) => s.id !== slipId);
       this.save();
+    },
+
+    // ============================================================
+    // Leaves  (ADDED)
+    // ============================================================
+    loadLeaves() {
+      this.leaves = storageService.get("leaves") || [];
+    },
+    saveLeaves() {
+      storageService.set("leaves", this.leaves);
+      this.loadLeaves();
+    },
+    // Bulk upsert from an Excel upload. Existing employees get updated,
+    // new ones get appended — so re-uploading refreshes the records.
+    setLeaves(records) {
+      records.forEach((rec) => {
+        const i = this.leaves.findIndex((l) => l.employeeid === rec.employeeid);
+        if (i !== -1) this.leaves[i] = { ...this.leaves[i], ...rec };
+        else this.leaves.push(rec);
+      });
+      this.saveLeaves();
+    },
+    getLeaveByEmployeeId(id) {
+      return this.leaves.find((l) => l.employeeid === id);
+    },
+    updateLeave(record) {
+      const i = this.leaves.findIndex(
+        (l) => l.employeeid === record.employeeid,
+      );
+      if (i !== -1) this.leaves[i] = record;
+      else this.leaves.push(record);
+      this.saveLeaves();
+    },
+    deleteLeave(id) {
+      this.leaves = this.leaves.filter((l) => l.employeeid !== id);
+      this.saveLeaves();
+    },
+    clearLeaves() {
+      this.leaves = [];
+      this.saveLeaves();
     },
   },
 });

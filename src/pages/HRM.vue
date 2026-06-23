@@ -68,7 +68,7 @@ let data = ref([
     links: [
       {
         title: "Employees Leaves",
-        url: "/employees/employees-leaves",
+        url: "/employees/leaves",
       },
     ],
   },
