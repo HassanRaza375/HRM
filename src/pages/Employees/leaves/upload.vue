@@ -7,7 +7,7 @@
         <v-btn
           variant="text"
           prepend-icon="mdi-arrow-left"
-          @click="router.push('/leaves')"
+          @click="router.push('/employees/leaves')"
         >
           Back
         </v-btn>
@@ -67,7 +67,7 @@
 
 <script setup>
 import ConfirmDialog from "../../../components/ui/ConfirmDialog.vue";
-import { useEmployeeStore } from "../../../stores/employeeStore";
+import { useEmployeeStore } from "../../../stores/employeeStore.js";
 import * as XLSX from "xlsx";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
@@ -160,7 +160,7 @@ const saveData = () => {
       text: "Leave records updated successfully",
       color: "success",
     });
-    router.push("/leaves");
+    router.push("/employees/leaves");
   } catch (err) {
     employeeStore.callNotification({ text: `${err}`, color: "error" });
   } finally {

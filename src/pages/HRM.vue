@@ -51,10 +51,10 @@ let data = ref([
         title: "Generate Docs",
         url: "/employees/generate-docs",
       },
-      {
-        title: "Salary",
-        url: "/employees/salary",
-      },
+      // {
+      //   title: "Salary",
+      //   url: "/employees/salary",
+      // },
       {
         title: "Salary Slip",
         url: "/employees/salary-slip",
@@ -99,6 +99,29 @@ let data = ref([
       {
         title: "Add Template",
         url: "/templates/create",
+      },
+    ],
+  },
+  {
+    title: "Assets",
+    subtitle: "Management",
+    image: "https://teamsuite.pk/zimages/icn_AssetManagement.png",
+    links: [
+      {
+        title: "Assets Type",
+        url: "/assets/types",
+      },
+      {
+        title: "Assets",
+        url: "/assets/",
+      },
+      {
+        title: "Assets Movement",
+        url: "/assets/movement",
+      },
+      {
+        title: "Assets Upload",
+        url: "/assets/upload",
       },
     ],
   },

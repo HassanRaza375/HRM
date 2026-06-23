@@ -11,7 +11,7 @@
                 class="rounded-0"
                 color="primary"
                 prepend-icon="mdi-upload"
-                @click="router.push('/leaves/upload')"
+                @click="router.push('/employees/leaves/upload')"
               >
                 Upload
               </v-btn>
@@ -102,7 +102,7 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { computed, onMounted, ref } from "vue";
-import { useEmployeeStore } from "../../../stores/employeeStore";
+import { useEmployeeStore } from "../../../stores/employeeStore.js";
 import ConfirmDialog from "../../../components/ui/ConfirmDialog.vue";
 import LeaveEditDialog from "../../../components/ui/LeaveEditDialog.vue";
 
@@ -142,7 +142,7 @@ const summaryCards = computed(() => {
   ];
 });
 
-const viewRow = (item) => router.push(`/leaves/${item.employeeid}`);
+const viewRow = (item) => router.push(`/employees/leaves/${item.employeeid}`);
 
 const editRow = (item) => {
   selectedRow.value = { ...item };

@@ -1,4 +1,4 @@
-<!-- src/pages/leaves/LeaveDetail.vue -->
+<!-- src/pages/employees/leaves/LeaveDetail.vue -->
 <template>
   <v-container>
     <!-- Header -->
@@ -19,7 +19,7 @@
           >
             Edit
           </v-btn>
-          <v-btn prepend-icon="mdi-arrow-left" @click="router.push('/leaves')">
+          <v-btn prepend-icon="mdi-arrow-left" @click="router.push('/employees/leaves')">
             Back
           </v-btn>
         </div>
@@ -76,7 +76,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { useEmployeeStore } from "../../../stores/employeeStore";
+import { useEmployeeStore } from "../../../stores/employeeStore.js";
 import LeaveEditDialog from "../../../components/ui/LeaveEditDialog.vue";
 
 const route = useRoute();

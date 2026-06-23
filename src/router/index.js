@@ -5,6 +5,7 @@ import { storageService } from "../services/storageService";
 import Dashboard from "../pages/Dashboard.vue";
 import Organogram from "../pages/OrgChart.vue";
 
+// Employee
 import Employees from "../pages/Employees/index.vue";
 import CreateEmployee from "../pages/Employees/create.vue";
 import BulkUpload from "../pages/Employees/bulk-upload.vue";
@@ -12,13 +13,21 @@ import GenerateDocs from "../pages/Employees/generate-docs.vue";
 import Salary from "../pages/Employees/salary.vue";
 import SalarySlip from "../pages/Employees/salary-slip/index.vue";
 import SalaryForm from "../pages/Employees/salary-slip/form.vue";
-import LeaveList from "../pages/Employees/leaves/LeavesList.vue";
-import UploadLeaves from "../pages/Employees/leaves/LeaveUpload.vue";
-import LeaveDetails from "../pages/Employees/leaves/LeaveDetail.vue";
+import LeaveList from "../pages/Employees/leaves/index.vue";
+import UploadLeaves from "../pages/Employees/leaves/upload.vue";
+import LeaveDetails from "../pages/Employees/leaves/detail.vue";
 
+// Template
 import Templates from "../pages/Templates/index.vue";
 import TemplatesCreate from "../pages/Templates/create.vue";
 
+// Assets
+import Assets from "../pages/Assets/assets.vue";
+import AssetsMovement from "../pages/Assets/movement.vue";
+import AssetsTypes from "../pages/Assets/types.vue";
+import AssetsUpload from "../pages/Assets/upload.vue";
+
+// Main pages
 import HRM from "../pages/HRM.vue";
 
 import Report from "../pages/Report/index.vue";
@@ -58,7 +67,6 @@ const routes = [
       {
         path: "employees/leaves/:employeeid",
         component: LeaveDetails,
-        props: true,
       },
       { path: "employees/salary", component: Salary },
       { path: "employees/salary-slip", component: SalarySlip },
@@ -66,6 +74,11 @@ const routes = [
 
       { path: "templates", component: Templates },
       { path: "templates/create", component: TemplatesCreate },
+
+      { path: "assets", component: Assets },
+      { path: "assets/movement", component: AssetsMovement },
+      { path: "assets/types", component: AssetsTypes },
+      { path: "assets/upload", component: AssetsUpload },
 
       { path: "settings", component: Settings },
 

@@ -10,7 +10,7 @@
       <v-card-text>
         <div v-for="t in types" :key="t.key" class="mb-4">
           <div class="text-subtitle-2 mb-2">{{ t.label }}</div>
-          <v-row dense>
+          <v-row density="comfortable">
             <v-col cols="4">
               <v-text-field
                 label="Total"
