@@ -79,55 +79,50 @@ export const salarySlipTemplate = {
                     <tr>
                         <td width="20%" align="left"
                             style="border-right-color: transparent;border-bottom-color:transparent;"><b>Basic:</b></td>
-                        <td width="12%" align="right" style="border-bottom-color:transparent;">00000</td>
-                        <td width="20%" align="left"
-                            style="border-right-color: transparent;border-bottom-color:transparent;"><b>Fuel
-                                Allowance:</b></td>
-                        <td width="12%" align="right" style="border-bottom-color:transparent;">N/A</td>
+                        <td width="12%" align="right" style="border-bottom-color:transparent;">{{basicsalary}}</td>
+                        <td colspan="2" rowspan="4" valign="top"
+                            style="padding:0;border-bottom-color:transparent;">
+                            <table width="100%" style="border-collapse:collapse;">
+                                {{otherBenefitsRows}}
+                            </table>
+                        </td>
                         <td width="20%" align="left"
                             style="border-right-color: transparent;border-bottom-color:transparent;"><b>EOBI:</b></td>
-                        <td width="12%" align="right" style="border-bottom-color:transparent;">N/A</td>
+                        <td width="12%" align="right" style="border-bottom-color:transparent;">{{eobi}}</td>
                     </tr>
 
                     <tr>
                         <td width="20%" align="left"
                             style="border-right-color: transparent;border-bottom-color:transparent;"><b>House Rent:</b>
                         </td>
-                        <td width="12%" align="right" style="border-bottom-color:transparent;">N/A</td>
-                        <td style="border-right-color: transparent;border-bottom-color: transparent;"></td>
-                        <td style="border-bottom-color: transparent"></td>
+                        <td width="12%" align="right" style="border-bottom-color:transparent;">{{houserent}}</td>
                         <td style="border-right-color: transparent;border-bottom-color: transparent"><b>Provident
                                 Fund:</b></td>
-                        <td align="right" style="border-bottom-color: transparent;">N/A</td>
+                        <td align="right" style="border-bottom-color: transparent;">{{providentfund}}</td>
                     </tr>
 
                     <tr>
                         <td width="20%" align="left"
                             style="border-right-color: transparent;border-bottom-color:transparent;"><b>Utilities:</b>
                         </td>
-                        <td width="12%" align="right" style="border-bottom-color:transparent;">N/A</td>
-                        <td style="border-right-color: transparent;border-bottom-color:transparent;"></td>
-                        <td style="border-bottom-color: transparent;"></td>
+                        <td width="12%" align="right" style="border-bottom-color:transparent;">{{utility}}</td>
                         <td style="border-bottom-color:transparent;border-right-color: transparent;"></td>
                         <td style="border-bottom-color:transparent;"></td>
                     </tr>
                     <tr>
                         <td width="20%" align="left" style="border-right-color: transparent;"><b>Medical:</b></td>
-                        <td width="12%" align="right">N/A</td>
-                        <td style="border-right-color: transparent;"></td>
-                        <td></td>
+                        <td width="12%" align="right">{{medical}}</td>
                         <td style="border-right-color: transparent;"></td>
                         <td></td>
                     </tr>
 
-
                     <tr>
                         <td width="20%" align="left"><b>Total:</b></td>
-                        <td width="12%" align="right">00000</td>
+                        <td width="12%" align="right">{{earningsTotal}}</td>
                         <td width="20%" align="left"><b>Total</b></td>
-                        <td width="12%" align="right">N/A</td>
+                        <td width="12%" align="right">{{otherBenefitsTotal}}</td>
                         <td width="20%" align="left"><b>Total</b></td>
-                        <td width="12%" align="right">0</td>
+                        <td width="12%" align="right">{{deductionsTotal}}</td>
                     </tr>
                     <tr>
                         <td colspan="6" style="border-inline-color: transparent;height: 31px;"></td>
@@ -136,13 +131,13 @@ export const salarySlipTemplate = {
                         <td colspan="4">
                             <b>Amount in Words:</b>
                             <br>
-                            <i>Zero Rupees Only</i>
+                            <i>{{amountinwords}}</i>
                         </td>
                         <td>
                             <b>Net Payable</b>
                         </td>
                         <td align="right">
-                            00000
+                            {{netpayable}}
                         </td>
                     </tr>
                 </tbody>
@@ -204,6 +199,6 @@ export const salarySlipTemplate = {
     footer: ``,
   },
 
-  variables: ["name", "designation", "currentsalary", "doj", "cnic", "accountdetails", "department", "officelocation", "region", "grade", "currentmonthdays", "id", "todaydate"],
+  variables: ["name", "designation", "currentsalary", "doj", "cnic", "accountdetails", "department", "officelocation", "region", "grade", "currentmonthdays", "id", "todaydate", "basicsalary", "houserent", "utility", "medical", "eobi", "providentfund", "otherBenefitsRows", "otherBenefitsTotal", "earningsTotal", "deductionsTotal", "netpayable", "amountinwords"],
   dateCreated: "4th Jan 2026",
 };

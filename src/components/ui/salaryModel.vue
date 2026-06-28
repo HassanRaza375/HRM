@@ -74,12 +74,29 @@ const template = computed(() =>
 */
 const renderData = computed(() => {
   const row = props.selectedRow || {};
+  const benefits = Array.isArray(row.otherBenefits) ? row.otherBenefits : [];
+
+  const toNum = (v) => parseFloat(v) || 0;
+
+  const otherBenefitsRows = benefits.length === 0
+    ? `<tr><td colspan="2" style="border:0;padding:3px;text-align:center;color:#888;">N/A</td></tr>`
+    : benefits.map(b => `<tr>
+        <td style="border:0;padding:3px;"><b>${b.title}:</b></td>
+        <td style="border:0;padding:3px;" align="right">${b.value || "N/A"}</td>
+      </tr>`).join("");
+
+  const earningsTotal = toNum(row.basicsalary) + toNum(row.houserent) + toNum(row.utility) + toNum(row.medical);
+  const deductionsTotal = toNum(row.eobi) + toNum(row.providentfund);
+  const otherBenefitsTotal = benefits.reduce((sum, b) => sum + toNum(b.value), 0);
+
   return {
     ...row,
-    // template uses {{id}} for "Employee No"
     id: row.employeeid ?? row.id ?? "",
-    // template uses {{todaydate}}
     todaydate: new Date().toLocaleDateString(),
+    otherBenefitsRows,
+    earningsTotal: earningsTotal || "N/A",
+    deductionsTotal: deductionsTotal || "N/A",
+    otherBenefitsTotal: benefits.length === 0 ? "N/A" : otherBenefitsTotal,
   };
 });
 

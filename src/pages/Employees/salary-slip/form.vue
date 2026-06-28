@@ -132,6 +132,37 @@
                 <v-card class="rounded-0">
                     <v-card-text>
                         <v-row>
+                            <v-col cols="12" class="d-flex justify-space-between align-center">
+                                <h2 class="text-title-medium font-weight-bold mb-0">Other Benefits</h2>
+                                <v-btn size="small" color="primary" prepend-icon="mdi-plus" @click="addBenefit">
+                                    Add Benefit
+                                </v-btn>
+                            </v-col>
+                            <v-col cols="12" v-if="form.otherBenefits.length === 0">
+                                <p class="text-medium-emphasis text-body-2">No other benefits added. Click "Add Benefit" to add one.</p>
+                            </v-col>
+                            <template v-for="(benefit, index) in form.otherBenefits" :key="index">
+                                <v-col cols="5">
+                                    <v-text-field label="Benefit Title" density="compact" v-model="benefit.title"
+                                        hide-details variant="outlined" />
+                                </v-col>
+                                <v-col cols="5">
+                                    <v-text-field label="Amount" density="compact" v-model="benefit.value"
+                                        hide-details variant="outlined" type="number" />
+                                </v-col>
+                                <v-col cols="2" class="d-flex align-center">
+                                    <v-btn icon="mdi-delete" variant="text" color="error" size="small"
+                                        @click="removeBenefit(index)" />
+                                </v-col>
+                            </template>
+                        </v-row>
+                    </v-card-text>
+                </v-card>
+            </v-col>
+            <v-col cols="12">
+                <v-card class="rounded-0">
+                    <v-card-text>
+                        <v-row>
                             <v-col cols="12">
                                 <h2 class="text-title-medium font-weight-bold mb-0">Provident Fund</h2>
                             </v-col>
@@ -215,6 +246,7 @@ const form = ref({
     employeepfcon: "",
     pfProfit: "",
     pfTotal: "",
+    otherBenefits: [],
 });
 
 const employees = ref([]);
@@ -247,6 +279,14 @@ watch(
     }
 );
 
+const addBenefit = () => {
+    form.value.otherBenefits.push({ title: "", value: "" });
+};
+
+const removeBenefit = (index) => {
+    form.value.otherBenefits.splice(index, 1);
+};
+
 const goBack = () => router.back();
 
 const onSubmit = () => {
@@ -272,6 +312,9 @@ onMounted(() => {
         );
         if (slip) {
             form.value = { ...slip };
+            if (!Array.isArray(form.value.otherBenefits)) {
+                form.value.otherBenefits = [];
+            }
         }
     }
 });
