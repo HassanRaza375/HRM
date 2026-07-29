@@ -10,6 +10,8 @@ export const useEmployeeStore = defineStore("employee", {
     notification: [],
     organogram: [],
     leaves: [],
+    kpis: [],
+    performanceReviews: [],
     isAuthenticated: false,
     showMainContent: false,
   }),
@@ -36,6 +38,8 @@ export const useEmployeeStore = defineStore("employee", {
       this.employees = storageService.get("employees") || [];
       this.templates = [...templateList] || [];
       this.leaves = storageService.get("leaves") || [];
+      this.kpis = storageService.get("kpis") || [];
+      this.performanceReviews = storageService.get("performanceReviews") || [];
       this.isAuthenticated = storageService.get("isAuthenticated");
     },
     save() {
@@ -188,6 +192,41 @@ export const useEmployeeStore = defineStore("employee", {
     clearLeaves() {
       this.leaves = [];
       this.saveLeaves();
+    },
+    // Performance & KPIs
+    saveKpis() {
+      storageService.set("kpis", this.kpis);
+      this.kpis = storageService.get("kpis") || [];
+    },
+    addKpi(kpi) {
+      this.kpis.push({ ...kpi, id: kpi.id || `KPI-${Date.now()}` });
+      this.saveKpis();
+    },
+    updateKpi(kpi) {
+      const i = this.kpis.findIndex((item) => item.id === kpi.id);
+      if (i !== -1) this.kpis[i] = { ...kpi };
+      this.saveKpis();
+    },
+    deleteKpi(id) {
+      this.kpis = this.kpis.filter((item) => item.id !== id);
+      this.saveKpis();
+    },
+    savePerformanceReviews() {
+      storageService.set("performanceReviews", this.performanceReviews);
+      this.performanceReviews = storageService.get("performanceReviews") || [];
+    },
+    addPerformanceReview(review) {
+      this.performanceReviews.push({ ...review, id: review.id || `REV-${Date.now()}` });
+      this.savePerformanceReviews();
+    },
+    updatePerformanceReview(review) {
+      const i = this.performanceReviews.findIndex((item) => item.id === review.id);
+      if (i !== -1) this.performanceReviews[i] = { ...review };
+      this.savePerformanceReviews();
+    },
+    deletePerformanceReview(id) {
+      this.performanceReviews = this.performanceReviews.filter((item) => item.id !== id);
+      this.savePerformanceReviews();
     },
   },
 });

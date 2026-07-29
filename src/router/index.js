@@ -16,6 +16,10 @@ import SalaryForm from "../pages/Employees/salary-slip/form.vue";
 import LeaveList from "../pages/Employees/leaves/index.vue";
 import UploadLeaves from "../pages/Employees/leaves/upload.vue";
 import LeaveDetails from "../pages/Employees/leaves/detail.vue";
+import EmployeePerformance from "../pages/Employees/performance.vue";
+import Kpis from "../pages/Employees/kpis.vue";
+import PerformanceDashboard from "../pages/Employees/performance-dashboard.vue";
+import PerformanceDetail from "../pages/Employees/performance-detail.vue";
 
 // Template
 import Templates from "../pages/Templates/index.vue";
@@ -71,6 +75,10 @@ const routes = [
       { path: "employees/salary", component: Salary },
       { path: "employees/salary-slip", component: SalarySlip },
       { path: "employees/salary-slip/form", component: SalaryForm },
+      { path: "employees/employees-performance", component: EmployeePerformance },
+      { path: "employees/kpis", component: Kpis },
+      { path: "employees/performance", component: PerformanceDashboard },
+      { path: "employees/performance/:id", component: PerformanceDetail },
 
       { path: "templates", component: Templates },
       { path: "templates/create", component: TemplatesCreate },

@@ -78,6 +78,10 @@ let data = ref([
     image: "https://teamsuite.pk/zimages/icn_PerformanceApp.png",
     links: [
       {
+        title: "Overview",
+        url: "/employees/performance",
+      },
+      {
         title: "Employees Performance",
         url: "/employees/employees-performance",
       },
